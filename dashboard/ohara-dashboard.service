@@ -1,0 +1,18 @@
+[Unit]
+Description=OHARA Web Dashboard
+After=network.target tailscaled.service
+Wants=tailscaled.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ohara
+Environment=PYTHONPATH=/opt/ohara/core/scripts
+ExecStart=/opt/ohara/.venv/bin/python3 dashboard/app.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/opt/ohara/logs/dashboard.log
+StandardError=append:/opt/ohara/logs/dashboard.log
+
+[Install]
+WantedBy=multi-user.target
