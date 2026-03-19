@@ -399,12 +399,26 @@ def deploy():
             break
 
     if not key_id:
-        result = hetzner("POST", "/ssh_keys", {
-            "name": "ohara-deploy",
-            "public_key": ssh_pub_key
-        })
-        key_id = result["ssh_key"]["id"]
-        ok(f"SSH key registered (id={key_id})")
+        try:
+            result = hetzner("POST", "/ssh_keys", {
+                "name": "ohara-deploy",
+                "public_key": ssh_pub_key
+            })
+            key_id = result["ssh_key"]["id"]
+            ok(f"SSH key registered (id={key_id})")
+        except RuntimeError as e:
+            if "uniqueness_error" in str(e) or "409" in str(e):
+                # Key already exists under a different name — find it by public key
+                all_keys = hetzner("GET", "/ssh_keys")
+                for k in all_keys.get("ssh_keys", []):
+                    if k["public_key"].strip() == ssh_pub_key:
+                        key_id = k["id"]
+                        ok(f"SSH key already exists, reusing (id={key_id})")
+                        break
+                if not key_id:
+                    raise RuntimeError("SSH key conflict but could not find existing key.")
+            else:
+                raise
 
     # 4. Provision VPS
     step(f"Provisioning Hetzner {SERVER_TYPE} in {LOCATION}...")
