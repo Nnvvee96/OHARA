@@ -1,0 +1,33 @@
+# ── SECRETS (never commit these) ─────────────────────────────
+secrets.env
+.env
+*.key
+*.pem
+
+# ── DATABASES (live on server, not in git) ────────────────────
+core/db/*.db
+core/db/*.db-wal
+core/db/*.db-shm
+
+# ── RAW VAULT (content files — can be huge) ──────────────────
+core/vault/raw/
+
+# ── PYTHON ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# ── OS ────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── LOGS ─────────────────────────────────────────────────────
+logs/
+*.log
