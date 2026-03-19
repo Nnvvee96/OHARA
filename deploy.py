@@ -167,9 +167,9 @@ echo "════════════════════════�
 
 # ── System update ─────────────────────────────────────────
 echo "[1/8] System update..."
-apt-get update -qq
-apt-get upgrade -y -qq
-apt-get install -y -qq git python3 python3-pip python3-venv curl ufw
+DEBIAN_FRONTEND=noninteractive apt-get update -qq
+DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -qq -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
+DEBIAN_FRONTEND=noninteractive apt-get install -y -qq git python3 python3-pip python3-venv curl ufw
 
 # ── Tailscale ─────────────────────────────────────────────
 echo "[2/8] Installing Tailscale..."
@@ -189,7 +189,7 @@ echo "  Firewall: SSH only via Tailscale"
 # ── Disable password auth ─────────────────────────────────
 sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
 sed -i 's/^#*PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
-systemctl reload sshd
+systemctl reload ssh || systemctl reload sshd || true
 echo "  SSH: password auth disabled"
 
 # ── Clone repo ────────────────────────────────────────────
