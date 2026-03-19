@@ -120,11 +120,23 @@ def ssh_connect(ip: str, retries: int = 8) -> paramiko.SSHClient:
         try:
             client = paramiko.SSHClient()
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            client.connect(
-                ip, port=22, username="root",
-                key_filename=str(key_path),
-                timeout=15,
-            )
+            # Try with explicit key first, then fall back to SSH agent
+            try:
+                client.connect(
+                    ip, port=22, username="root",
+                    key_filename=str(key_path),
+                    timeout=15,
+                    look_for_keys=False,
+                    allow_agent=False,
+                )
+            except paramiko.ssh_exception.PasswordRequiredException:
+                # Key is encrypted — try SSH agent
+                client.connect(
+                    ip, port=22, username="root",
+                    timeout=15,
+                    look_for_keys=True,
+                    allow_agent=True,
+                )
             return client
         except Exception as e:
             if i == retries - 1:
