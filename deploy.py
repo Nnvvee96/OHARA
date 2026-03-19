@@ -437,7 +437,7 @@ def deploy():
                       if not st.get("deprecated", False)]
     
     # Pick best available type
-    preferred = ["cpx22", "cx22", "cpx21", "cx32", "cpx32"]
+    preferred = ["cpx22", "cpx21", "cx22", "cpx32", "cx32"]
     chosen_type = SERVER_TYPE
     for p in preferred:
         if p in available_names:
