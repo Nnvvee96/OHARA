@@ -444,21 +444,31 @@ def deploy():
             chosen_type = p
             break
     
-    ok(f"Using server type: {chosen_type}")
-    
-    server_result = hetzner("POST", "/servers", {
-        "name": "ohara-library",
-        "server_type": chosen_type,
-        "location": LOCATION,
-        "image": "ubuntu-24.04",
-        "ssh_keys": [key_id],
-        "labels": {"project": "ohara", "role": "library"},
-    })
+    # Check if server already exists
+    server_id = None
+    server_ip = None
+    existing_servers = hetzner("GET", "/servers")
+    for s in existing_servers.get("servers", []):
+        if s["name"] == "ohara-library":
+            server_id = s["id"]
+            server_ip = s["public_net"]["ipv4"]["ip"]
+            ok(f"Server already exists — reusing (id={server_id}, ip={server_ip})")
+            break
 
-    server = server_result["server"]
-    server_id = server["id"]
-    server_ip = server["public_net"]["ipv4"]["ip"]
-    ok(f"Server created — ID: {server_id}, IP: {server_ip}")
+    if not server_id:
+        ok(f"Using server type: {chosen_type}")
+        server_result = hetzner("POST", "/servers", {
+            "name": "ohara-library",
+            "server_type": chosen_type,
+            "location": LOCATION,
+            "image": "ubuntu-24.04",
+            "ssh_keys": [key_id],
+            "labels": {"project": "ohara", "role": "library"},
+        })
+        server = server_result["server"]
+        server_id = server["id"]
+        server_ip = server["public_net"]["ipv4"]["ip"]
+        ok(f"Server created — ID: {server_id}, IP: {server_ip}")
 
     # 5. Wait for boot
     step("Waiting for server to boot...")
