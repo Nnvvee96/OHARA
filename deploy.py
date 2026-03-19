@@ -484,14 +484,36 @@ def deploy():
 
     # 5. Wait for boot
     step("Waiting for server to boot...")
-    time.sleep(20)
-    if not wait_for_ssh(server_ip, timeout=120):
-        raise RuntimeError("Server SSH never became available. Check Hetzner console.")
+    
+    # Check if we already have a Tailscale IP saved (server was partially set up)
+    server_json = Path("server.json")
+    saved_tailscale_ip = None
+    if server_json.exists():
+        import json as _json
+        saved = _json.loads(server_json.read_text())
+        saved_tailscale_ip = saved.get("tailscale_ip")
+    
+    # Try Tailscale IP first (if server was already set up), then public IP
+    connect_ip = server_ip
+    if saved_tailscale_ip:
+        step(f"Trying Tailscale IP first: {saved_tailscale_ip}")
+        if wait_for_ssh(saved_tailscale_ip, timeout=30):
+            connect_ip = saved_tailscale_ip
+            ok(f"Connected via Tailscale: {connect_ip}")
+        else:
+            ok("Tailscale not reachable, trying public IP...")
+            time.sleep(10)
+            if not wait_for_ssh(server_ip, timeout=120):
+                raise RuntimeError("Server SSH never became available. Check Hetzner console.")
+    else:
+        time.sleep(20)
+        if not wait_for_ssh(server_ip, timeout=120):
+            raise RuntimeError("Server SSH never became available. Check Hetzner console.")
     ok("Server is up and accepting SSH")
 
     # 6. Connect and run setup
     step("Connecting via SSH...")
-    client = ssh_connect(server_ip)
+    client = ssh_connect(connect_ip)
     ok("Connected")
 
     step("Running setup script on VPS (this takes 3-5 minutes)...")
