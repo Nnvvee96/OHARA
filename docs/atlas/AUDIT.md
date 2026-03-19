@@ -1,54 +1,60 @@
 ---
 system: Atlas Vault OS
 version: 3.1
-date: March 18, 2026
-status: COMMAND_REF / PLAYBOOKS
+date: March 19, 2026
+status: ACTIVE / DYNAMIC
 project: OHARA
 dependencies: [[AGENT.md]], [[PATTERNS.md]], [[CONSTRAINTS.md]]
 ---
 # AUDIT.md - Architectural Audits & Red-Team Findings
 # PROJECT: OHARA
 
-# 1. Command Center (OHARA-spezifisch)
-Tiered commands; cap at $0.50/task.
+## 1. Phase 0 Audit [RESOLVED — 2026-03-18]
+✓ utility_vector als Pflichtfeld implementiert
+✓ Wizard Evolution Tabellen in governance.sql (Phase 7 ready)
+✓ Alle 14 Atlas-Files für OHARA befüllt
+✓ Cross-DB FK Limitation akzeptiert (by design)
 
-| Command | Zweck | Model Tier | Node |
-|---------|-------|------------|------|
-| /REINDEX | Graph refreshen | Utility | Global |
-| /SPECIFY | Architektur locken | Reasoning | TDD.md |
-| /SHRED | Plan red-teamen | Reasoning | AUDIT.md |
-| /PLAN | Micro-Steps | Balanced | IMPLEMENTATION_PLAN.md |
-| /EXECUTE | Implementieren | Balanced | SESSION_LOGS.md |
-| /AUDIT | Hardening Gate | Reasoning | AUDIT.md |
-| /SKILL | Lektion kodifizieren | Balanced | SKILLS_COMPOUNDING.md |
-| /REMEDIATE | Wiederherstellen | Reasoning | RECOVERY_KIT.md |
+## 2. VPS Deploy Audit [RESOLVED — 2026-03-19]
+✓ Hetzner CPX22 läuft (cpx22, nicht deprecated cx11/cx22)
+✓ Tailscale aktiv — SSH nur via Tailscale IP
+✓ UFW Firewall: deny all außer Tailscale
+✓ Dashboard auf Port 7842 (Tailscale-only)
+✓ SSH Key ohne Passwort (id_ohara)
 
-# 2. Phase 0 Audit — Abgeschlossen [2026-03-18]
-FINDING: utility_vector fehlte initial → RESOLVED
-FINDING: Wizard Evolution nicht im Schema → RESOLVED (Phase 6 Tabellen angelegt)
-FINDING: Atlas MD-Files nicht für OHARA befüllt → RESOLVED
-FINDING: Cross-DB FK Limitation (SQLite) → ACCEPTED by design
+## 3. Offene Findings (OPEN)
 
-# 3. Epistemische Risiken (Ongoing)
-RISK: Confidence Inflation — Mitigation: Skeptic-Cycles als Hard Gate
-RISK: Source Pool Calcification — Monitoring: high_duplicate_rate Threshold
-RISK: Epoch Drift — Enforced: INVARIANT-3, Epoch-Freeze-Trigger
-RISK: Gott-Bottleneck — Acceptable: STRUCTURAL ist selten (<5% aller Patterns)
+FINDING: Reddit 403 auf VPS-IPs
+  Risk: Scouts finden keine Quellen → 0 Atome
+  Mitigation: HackerNews RSS als primäre Quelle deployen
+  Status: OPEN — nächste Session
 
-# 4. Security Audit
+FINDING: Kein Auto-Pull nach GitHub Push
+  Risk: VPS veraltet wenn Claude Code pusht
+  Mitigation: GitHub Webhook einrichten
+  Status: OPEN — nächste Session
+
+FINDING: Telegram Bot fehlt noch
+  Risk: Keine mobile Kontrolle
+  Mitigation: python-telegram-bot einrichten
+  Status: OPEN — nächste Session
+
+## 4. Epistemische Risiken (Ongoing)
+RISK: Confidence Inflation → Skeptic-Cycles als Hard Gate
+RISK: Source Pool Calcification → Anomalie-Threshold
+RISK: Epoch Drift → INVARIANT-3 enforced
+RISK: 0 Atome aktuell → Reddit Fix pending
+
+## 5. Security Audit
 ✓ SSH nur via Tailscale
 ✓ Password Auth deaktiviert
-✓ UFW: deny all inbound außer Tailscale
+✓ UFW aktiv
 ✓ secrets.env in .gitignore
-✓ Agent Permission Matrix enforced
-✓ Execution World read-only (INVARIANT-6)
+✓ Dashboard Tailscale-only
 
-# 5. /SHRED Checklist vor Phase 2
-[ ] Prompt-Versionen für alle 5 Wizards ausreichend getestet?
-[ ] Phase 1 Kalibrierung abgeschlossen (50+ Atome, Schwellenwerte locked)?
-[ ] Anomalie-Thresholds kalibriert gegen reale Daten?
-[ ] Source Pool pro Wizard ausreichend divers?
-[ ] Kein API Key im Chat geteilt (wenn ja: widerrufen)?
-
-Final Principle: Disziplin über Inspiration. Halt bei Ambiguität.
-SOUL.md hat immer Vorrang.
+## 6. /SHRED Checklist vor Phase 1
+[ ] HackerNews RSS erfolgreich getestet auf VPS?
+[ ] Acceptance Rate von manuellen Cycles kalibriert?
+[ ] Gemini API Kontingent ausreichend für 5 Wizards?
+[ ] Webhook eingerichtet?
+[ ] Telegram Bot eingerichtet?

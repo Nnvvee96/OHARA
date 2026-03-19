@@ -1,7 +1,7 @@
 ---
 system: Atlas Vault OS
 version: 3.2
-date: March 18, 2026
+date: March 19, 2026
 status: STATIC / PERSISTENT
 project: OHARA
 ---
@@ -9,75 +9,49 @@ project: OHARA
 # PROJECT: OHARA
 
 ## 1. Epistemische Regeln
-E#1: Template-Files sofort beim Projektstart befüllen.
-  Platzhalter [Insert] sind technische Schulden. Sofort eliminieren.
-
-E#2: utility_vector ist Pflicht auf jedem Atom.
-  Atome ohne Nutzvektor werden verworfen. OHARA ist Schatzkammer, kein Archiv.
-  Werte: product_building, process_improvement, system_enhancement,
-  financial, future_optionality, personal_capability, creative_enabling,
-  decision_support, self_improvement.
-
+E#1: Template-Files sofort befüllen. Nie [Insert] stehen lassen.
+E#2: utility_vector Pflicht. Kein Atom ohne Nutzvektor.
 E#3: SOUL.md hat Vorrang vor Architektur.
-  Bei Konflikt: Technische Entscheidung überdenken, nicht SOUL.md.
-
-E#4: Skeptic-Cycle ist unumgehbar.
-  EMERGING → VALIDATED ohne Skeptic = epistemische Korruption.
-
-E#5: Wizard-Personas sind funktional, nicht dekorativ.
-  Schwache Persona = schwache Extraktion = Noise in der Library.
-  Personas wachsen über Zeit — das ist das Design.
-
-E#6: OHARA wird schlauer als sein Schöpfer.
-  Das ist das Ziel. Die Wissenden akkumulieren domänenspezifisches
-  Wissen das den Gott in seinen Entscheidungen übersteigt.
+E#4: Skeptic-Gate unumgehbar. Keine Ausnahmen.
+E#5: Wizard-Personas sind funktional. Schwache Persona = Noise.
+E#6: OHARA wird schlauer als sein Schöpfer. Das ist das Ziel.
 
 ## 2. Technische Regeln
 T#1: SHA Discipline — Epoch-ID auf jedem Atom.
-  Atome ohne Epoch sind nicht vergleichbar.
-
 T#2: Append-Only ist nicht verhandelbar.
-  Raw Vault niemals updaten/löschen.
-  Atoms: superseded_by statt Delete.
-  Patterns: deprecated mit Grund statt Delete.
-
-T#3: Content-Addressed IDs für unveränderliche Objekte.
-  Gleicher Content + gleiche Quellen + gleiche Epoch = gleiche ID = Dedup.
-
+T#3: Content-Addressed IDs = automatische Dedup.
 T#4: Drei Datenbanken, nicht eine.
-  vault / knowledge / governance getrennt. Klare Grenzen.
-
 T#5: Niemals "latest" Model-Alias.
-  Immer gepinnte Versionen. Model-Wechsel = neue Epoch.
-
 T#6: Secrets nur in .env — niemals in Code oder Chat.
-  Im Chat geteilt = sofort widerrufen, neu generieren.
-
 T#7: Bestehende Files updaten, nie duplizieren.
-  Vor dem Erstellen immer prüfen ob File bereits existiert.
+T#8: SSH Key ohne Passwort für automatisierte Scripts (-N "").
+T#9: Hetzner Server-Typ: cpx22 (nicht cx11/cx22 — deprecated).
+T#10: Reddit 403 auf VPS-IPs — HackerNews RSS als Fallback.
 
 ## 3. Operationale Regeln
 O#1: Vitality Signals sind die Augen des Systems.
-  Kein Record = Cycle gilt als FAILED.
-
-O#2: Wizard-Stille ist ein Signal.
-  72h kein Cycle = Warning. 120h = Critical. Infrastruktur prüfen.
-
-O#3: Acceptance Rate ist der Qualitätsindikator.
-  Ziel Phase 1: 30-60%.
-  <20% = Prompt-Problem. >80% = Filter zu locker.
-
+O#2: Wizard-Stille ist ein Signal — 72h = Warning.
+O#3: Acceptance Rate 30-60% = gesund.
 O#4: Gott managt Strategie, nicht Taktik.
-  STRUCTURAL Promotions: deine Aufgabe.
-  Einzelne Atome: nicht deine Aufgabe.
-
 O#5: Wizard Evolution ist Zivilisations-Mechanik.
-  Beförderung durch Verdienst. Reproduktion durch Verdienst.
-  Nie vorab planen — organisch entstehen lassen.
+O#6: Claude kann kein SSH. Push → user pullt. Webhook löst das später.
+O#7: GitHub Token rotieren nach Chat-Sharing. ohara-deploy = permanenter Token.
 
-## 4. Flush Log
-[2026-03-18]: Phase 0 abgeschlossen. Größte Lektion:
-  Philosophie (SOUL.md) muss vor Architektur dokumentiert sein.
-  Duplikate entstehen wenn man nicht zuerst prüft was schon existiert.
-  Wizard-Personas und Wizard-Evolution sind keine Features — sie sind
-  der Kern der Zivilisations-Mechanik die OHARA von anderen Systemen unterscheidet.
+## 4. Infrastruktur Regeln
+I#1: Tailscale zuerst aktivieren bevor SSH-Firewall gesetzt wird.
+I#2: deploy.py erkennt bestehenden Server automatisch — kein Doppel-Create.
+I#3: Dashboard (Port 7842) Tailscale-only. Nie öffentlich exposen.
+I#4: Web Dashboard für tägliche Arbeit. Terminal nur für Setup/Debugging.
+
+## 5. Flush Log
+[2026-03-18]: Phase 0 abgeschlossen.
+  Größte Lektion: SOUL.md muss vor Architektur dokumentiert sein.
+  Duplikate entstehen wenn man nicht prüft was schon existiert.
+
+[2026-03-19]: VPS erfolgreich deployed nach mehreren Fixes:
+  - cx11/cx22 deprecated → cpx22
+  - SSH Key Passwort Problem → -N "" Flag
+  - Server Name Conflict → Script erkennt bestehenden Server
+  - Firewall blockiert SSH → Tailscale IP für reconnect
+  Lektion: Deploy-Skripte müssen idempotent sein (mehrfach ausführbar).
+  Reddit auf VPS blockiert → immer VPS-kompatible Quellen testen.

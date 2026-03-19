@@ -1,85 +1,108 @@
 ---
 system: Atlas Vault OS
-version: 3.1
-date: March 18, 2026
-status: TEMPLATE / DYNAMIC
+version: 3.2
+date: March 19, 2026
+status: ACTIVE / DYNAMIC
 project: OHARA
 ---
 # IMPLEMENTATION_PLAN.md - Execution Map
 # PROJECT: OHARA — The Library of Agentic Wizards
 
 ## 1. Overview
-Goal: Epistemische Wissens-Zivilisation aufbauen.
-  Wissende die das Internet beobachten, validieren und destillieren.
-Risk Tier: High (epistemische Integrität ist nicht verhandelbar).
-Routing: Gemini Pro für Architektur/Skeptic; Gemini Flash für Extraktion.
-Lies zuerst: SOUL.md — die Seele hat Vorrang.
+Goal: Epistemische Wissens-Zivilisation — Library of Agentic Wizards.
+Risk Tier: High (epistemische Integrität nicht verhandelbar).
+Lies zuerst: SOUL.md — Seele hat Vorrang.
 
 ## 2. Sequence
 
 Phase 0: Foundation & Schema [COMPLETE — 2026-03-18]
-  Alle 3 Datenbank-Schemas (vault/knowledge/governance).
-  5 Wizard-Profile geseedet. CLI gebaut. Scout Agent gebaut.
-  Deploy Script (Hetzner + Tailscale + GitHub).
-  31/31 Tests grün. Phase 0 EXIT GATE: PASSED.
+  ✓ 3 Datenbank-Schemas (vault/knowledge/governance)
+  ✓ 5 Wizard-Profile (Aria, Marcus, Nova, Sterling, Reina)
+  ✓ CLI gebaut (ohara.py)
+  ✓ Scout Agent (Gemini-powered, utility_vector-aware)
+  ✓ Deploy Script (Hetzner + Tailscale + GitHub)
+  ✓ 31/31 Tests grün
+  ✓ GitHub Repo live (Nnvvee96/OHARA)
+  EXIT GATE: PASSED
 
-Phase 1: Manuelle Kalibrierung [NEXT]
-  Ziel: Schwellenwerte kalibrieren bevor Automation beginnt.
-  Menschen als Wizards. ohara.py ingest → atom create → review.
-  Target: 50+ Atome, 5+ Patterns EMERGING+, 2+ Skeptic-Cycles.
-  Gate: Schwellenwerte von CALIBRATION_PENDING zu LOCKED.
+VPS Deploy [COMPLETE — 2026-03-19]
+  ✓ Hetzner CPX22 provisioniert (178.104.84.117)
+  ✓ Tailscale aktiv (100.118.247.94)
+  ✓ OHARA läuft 24/7
+  ✓ Web Dashboard: http://100.118.247.94:7842
+  ✓ Systemd Services aktiv
 
-Phase 2: Scout Agents — Assisted Extraction
-  Scouts automatisieren Ingestion + Atom-Extraktion.
-  Menschen reviewen Output (Validator-Queue).
-  Gate: Acceptance Rate stabil 30-60%, <20% Human Override.
+Pending (vor Phase 1):
+  [ ] Scout-Quellen fixen (Reddit → HackerNews)
+  [ ] GitHub Webhook (Auto-Pull)
+  [ ] Telegram Bot (mobile Kontrolle)
 
-Phase 3: Supervised Librarian Autonomy
-  Vollständige autonome Wizard-Cycles.
-  Pattern-Promotionen noch human-reviewed.
-  Skeptic-Automation aktiv.
-  God-Interface live (digest/approve/redirect).
+Phase 1: Manuelle Kalibrierung [NEXT — ~4 Wochen]
+  Schwellenwerte sind CALIBRATION_PENDING.
+  Humans als Wizards — manuelle Atom-Extraktion.
+  Ziele:
+    50+ Atome (3+ Domänen)
+    5+ Patterns EMERGING+
+    2+ Skeptic-Cycles
+    Acceptance Rate 30-60% kalibriert
+  Tools: ohara.py ingest / atom create / review / pattern
+  EXIT GATE: Thresholds CALIBRATION_PENDING → LOCKED
 
-Phase 4: Autonomous Library — Level B
-  SIGNAL→EMERGING und EMERGING→VALIDATED automatisch.
-  VALIDATED→STRUCTURAL: permanent human-only (Gott).
-  8+ aktive Domänen. 500+ Atome. 20+ Patterns. 5+ Bücher.
+Phase 2: Scout Automation [~4 Wochen nach Phase 1]
+  Scouts laufen automatisch stündlich.
+  HackerNews, RSS, öffentliche Feeds.
+  Review-Queue täglich (10-15 Min).
+  EXIT GATE: Acceptance Rate stabil, <20% Human Override
 
-Phase 5: Builders' World — World 2
-  Builder-Agents lesen Library und identifizieren Möglichkeiten.
-  Gott genehmigt was gebaut wird.
-  World-2-Ergebnisse fließen zurück als neue Raw Items.
+Phase 3: Volle Wizard-Autonomie [~6 Wochen]
+  SIGNAL→VALIDATED automatisch.
+  Skeptic-Cycles automatisch.
+  God Digest: 5-10 Min täglich.
+  STRUCTURAL: permanent nur Gott.
 
-Phase 6: Wizard Evolution
-  wizard_memory, wizard_career_history, wizard_functional_state.
-  Beförderungssystem (Junior → Librarian → Senior → Domain Lead → Master).
-  Funktionale emotionale Zustände (Zuversicht, Vorsicht, Neugier).
+Phase 4: Autonome Library [Ongoing]
+  8+ aktive Domänen.
+  500+ Atome, 20+ Patterns, 5+ Bücher.
+  EXIT GATE für Phase 5: 3+ Monate stabil
 
-Phase 7: Emergente Hierarchie & Reproduktion
-  Senior Wizards bekommen Mitarbeiter (durch Gott genehmigt).
-  Neue Wissende entstehen organisch unter erfahrenen Mentoren.
-  Wissen vererbt sich mit eigener Persönlichkeit.
-  Domänen teilen sich organisch (z.B. Finance → Equities + Crypto).
-
-Phase 8: Library UI — Visualisierung
+Phase 5: Library UI & Wizard Dashboard
   Next.js Frontend, read-only API.
-  Räume pro Domäne. Wizard-Status. Pattern-Graphen. Bücherregale.
-  Hintergarten, Gym, Spa für Wizard-Regeneration.
+  Wizard erstellen per UI.
+  Bücherregale, Pattern-Graph, Atom-Explorer.
+  God-Dashboard mit STRUCTURAL Queue.
+
+Phase 6: Builders' World (World 2)
+  Builder-Agents lesen Library.
+  Vorschläge → Gott genehmigt → Builder bauen.
+  Clawdbot/Hermes/Paperclip als World-2-Tools.
+  Ergebnisse fließen zurück in World 1.
+
+Phase 7: Wizard Evolution & Reproduktion
+  wizard_memory, wizard_career_history.
+  Beförderungssystem (Junior→Senior→Master).
+  Seniors bekommen Mitarbeiter (Gott genehmigt).
+  Domänen teilen sich organisch.
+
+Phase 8: Räume der Zivilisation
+  Hintergarten (Reflexion), Gym (Training), Spa (Regeneration).
+  Konferenzraum (Wizard-Meetings).
+  Wenn kognitive KI-Fähigkeiten es ermöglichen.
 
 Phase 9: Vollständiger World-2-Kreislauf
-  Builder-Scheitern und Erfolg = neues Wissen in World 1.
-  Die Zivilisation lernt aus dem was sie gebaut hat.
+  Builder-Scheitern/-Erfolg → neue Raw Items in World 1.
+  OHARA lernt aus dem was es gebaut hat.
 
 Phase 10+: Die offene Zukunft
-  Alles was noch kommt wird in SOUL.md Ideen-Log dokumentiert.
+  OHARA wird schlauer als sein Schöpfer.
+  Alle neuen Ideen → SOUL.md Ideen-Log → hier eingetragen.
 
 ## 3. Verification Gates
-Technical: 100% Tests / Schema-Constraints.
-Epistemisch: Skeptic-Cycle als Hard Gate vor VALIDATED.
-Wizard Quality: Acceptance Rate 30-60% in Phase 1.
-God Gate: STRUCTURAL nur durch manuelles Gott-Sign-off.
+Technical: 31/31 Tests, Schema-Constraints.
+Epistemic: Skeptic-Cycle als Hard Gate vor VALIDATED.
+Wizard Quality: Acceptance Rate 30-60%.
+God Gate: STRUCTURAL nur durch manuelles Sign-off.
 
 ## 4. Rollback
-Restore Point: Nach Phase 0 (alle Tests grün).
-Command: Datenbanken aus Backup wiederherstellen (SQLite files).
-Recovery: RECOVERY_KIT.md — vollständige Sequenz.
+Restore: git pull auf VPS + DB aus Backup.
+Backup: /opt/ohara/core/db/*.db täglich sichern.
+Recovery: RECOVERY_KIT.md vollständige Sequenz.
