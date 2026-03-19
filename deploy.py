@@ -429,10 +429,26 @@ def deploy():
                 raise
 
     # 4. Provision VPS
-    step(f"Provisioning Hetzner {SERVER_TYPE} in {LOCATION}...")
+    step(f"Provisioning Hetzner server in {LOCATION}...")
+    
+    # First check available server types
+    available = hetzner("GET", "/server_types")
+    available_names = [st["name"] for st in available.get("server_types", []) 
+                      if not st.get("deprecated", False)]
+    
+    # Pick best available type
+    preferred = ["cpx22", "cx22", "cpx21", "cx32", "cpx32"]
+    chosen_type = SERVER_TYPE
+    for p in preferred:
+        if p in available_names:
+            chosen_type = p
+            break
+    
+    ok(f"Using server type: {chosen_type}")
+    
     server_result = hetzner("POST", "/servers", {
         "name": "ohara-library",
-        "server_type": SERVER_TYPE,
+        "server_type": chosen_type,
         "location": LOCATION,
         "image": "ubuntu-24.04",
         "ssh_keys": [key_id],
