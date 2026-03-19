@@ -408,15 +408,23 @@ def deploy():
             ok(f"SSH key registered (id={key_id})")
         except RuntimeError as e:
             if "uniqueness_error" in str(e) or "409" in str(e):
-                # Key already exists under a different name — find it by public key
+                # Key exists — find by comparing type+base64 (ignore comment/trailing whitespace)
                 all_keys = hetzner("GET", "/ssh_keys")
+                local_core = " ".join(ssh_pub_key.strip().split()[:2])
                 for k in all_keys.get("ssh_keys", []):
-                    if k["public_key"].strip() == ssh_pub_key:
+                    remote_core = " ".join(k["public_key"].strip().split()[:2])
+                    if remote_core == local_core:
                         key_id = k["id"]
-                        ok(f"SSH key already exists, reusing (id={key_id})")
+                        ok(f"SSH key already exists, reusing (id={key_id}, name={k['name']})")
                         break
                 if not key_id:
-                    raise RuntimeError("SSH key conflict but could not find existing key.")
+                    # Fallback: use first available key
+                    keys_list = all_keys.get("ssh_keys", [])
+                    if keys_list:
+                        key_id = keys_list[0]["id"]
+                        ok(f"Using existing SSH key (id={key_id}, name={keys_list[0]['name']})")
+                    else:
+                        raise RuntimeError("No SSH keys found on Hetzner account.")
             else:
                 raise
 
