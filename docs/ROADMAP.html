@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OHARA — Vollständige Roadmap</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #e8e8e8; padding: 2rem; }
+  .page { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 24px; font-weight: 500; color: #fff; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 2rem; }
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #222; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .section-label { font-size: 11px; font-weight: 500; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin: 2rem 0 0.75rem 52px; }
+  .phase { display: flex; gap: 0; }
+  .timeline { display: flex; flex-direction: column; align-items: center; width: 52px; flex-shrink: 0; }
+  .dot { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+  .dot.done { background: #0a2e20; color: #1D9E75; border: 2px solid #1D9E75; }
+  .dot.active { background: #0a1e35; color: #378ADD; border: 2px solid #378ADD; }
+  .dot.next { background: #2e1e00; color: #EF9F27; border: 2px solid #BA7517; }
+  .dot.future { background: #1a1a1a; color: #666; border: 1.5px solid #333; }
+  .dot.vision { background: #1a1530; color: #7F77DD; border: 1.5px dashed #534AB7; }
+  .vline { width: 2px; flex: 1; min-height: 12px; margin: 3px 0; }
+  .vline.done { background: #1D9E75; }
+  .vline.active { background: #378ADD; }
+  .vline.next { background: #BA7517; }
+  .vline.light { background: #222; }
+  .card { flex: 1; border-radius: 12px; padding: 16px 18px; margin-bottom: 10px; border: 1px solid #222; background: #161616; }
+  .card.done { border-color: #0f4a30; }
+  .card.active { border: 2px solid #378ADD; background: #0d1e30; }
+  .card.next { border-color: #4a3000; }
+  .card.vision { border: 1px dashed #3a3060; }
+  .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+  .card-title { font-size: 15px; font-weight: 500; color: #fff; }
+  .badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+  .badge.done { background: #0a2e20; color: #1D9E75; }
+  .badge.active { background: #0a1e35; color: #378ADD; }
+  .badge.next { background: #2e1e00; color: #EF9F27; }
+  .badge.future { background: #1a1a1a; color: #666; }
+  .badge.vision { background: #1a1530; color: #7F77DD; }
+  .card-sub { font-size: 12px; color: #666; margin-bottom: 8px; font-style: italic; }
+  .card-desc { font-size: 13px; color: #aaa; line-height: 1.65; margin-bottom: 10px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .col-title { font-size: 11px; font-weight: 500; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .item { font-size: 12px; color: #888; display: flex; gap: 6px; line-height: 1.5; margin-bottom: 3px; }
+  .item.ok { color: #1D9E75; }
+  .item.ok::before { content: '✓'; flex-shrink: 0; }
+  .item.todo::before { content: '○'; flex-shrink: 0; color: #444; }
+  .item.warn { color: #EF9F27; }
+  .item.warn::before { content: '→'; flex-shrink: 0; }
+  .item.bullet::before { content: '·'; flex-shrink: 0; color: #444; }
+  .hbox { background: #1a1a1a; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 12px; color: #888; border-left: 3px solid #378ADD; line-height: 1.5; }
+  .hbox.warn { border-left-color: #BA7517; color: #999; }
+  .hbox.success { border-left-color: #1D9E75; }
+  .hbox.vision { border-left-color: #7F77DD; font-style: italic; color: #9090c0; }
+  @media (max-width: 600px) { .cols { grid-template-columns: 1fr; } body { padding: 1rem; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>OHARA — Vollständige Roadmap</h1>
+  <p class="subtitle">Von Phase 0 bis zur vollständigen Wissens-Zivilisation · Stand: März 2026</p>
+
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#1D9E75"></div>Abgeschlossen</div>
+    <div class="leg"><div class="leg-dot" style="background:#378ADD"></div>Gerade hier</div>
+    <div class="leg"><div class="leg-dot" style="background:#BA7517"></div>Als nächstes</div>
+    <div class="leg"><div class="leg-dot" style="background:#555"></div>Geplant</div>
+    <div class="leg"><div class="leg-dot" style="background:#7F77DD"></div>Vision</div>
+  </div>
+
+  <div class="section-label">Fundament</div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot done">✓</div><div class="vline done"></div></div>
+    <div class="card done">
+      <div class="card-head"><span class="card-title">Phase 0 — Foundation & Schema</span><span class="badge done">Abgeschlossen · März 2026</span></div>
+      <div class="card-sub">Das Fundament auf dem alles steht.</div>
+      <div class="cols">
+        <div>
+          <div class="col-title">Technisch</div>
+          <div class="item ok">3 Datenbank-Schemas (vault / knowledge / governance)</div>
+          <div class="item ok">31 Schema-Tests — alle grün</div>
+          <div class="item ok">CLI gebaut (ohara.py)</div>
+          <div class="item ok">Scout Agent (Gemini-powered)</div>
+          <div class="item ok">Deploy Script (Hetzner + Tailscale)</div>
+          <div class="item ok">GitHub Repo live (Nnvvee96/OHARA)</div>
+          <div class="item ok">Lokal getestet — 5 Wizards aktiv</div>
+        </div>
+        <div>
+          <div class="col-title">Philosophie</div>
+          <div class="item ok">SOUL.md v2.0 — vollständige Vision</div>
+          <div class="item ok">Zivilisations-Konzept dokumentiert</div>
+          <div class="item ok">utility_vector auf Atomen</div>
+          <div class="item ok">Alle 14 Atlas-Files befüllt</div>
+          <div class="item ok">Wizard Evolution vorgedacht</div>
+          <div class="item ok">Wizard Reproduktion geplant</div>
+        </div>
+      </div>
+      <div class="hbox success">5 Wizards: Aria (AI Patterns) · Marcus (Architecture) · Nova (SaaS) · Sterling (Finance) · Reina (Marketing)</div>
+    </div>
+  </div>
+
+  <div class="section-label">Infrastruktur</div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot active">→</div><div class="vline active"></div></div>
+    <div class="card active">
+      <div class="card-head"><span class="card-title">VPS Deploy — Hetzner Setup</span><span class="badge active">Gerade hier</span></div>
+      <div class="card-sub">OHARA von lokal auf einen 24/7 Server bringen.</div>
+      <div class="cols">
+        <div>
+          <div class="col-title">Erledigt</div>
+          <div class="item ok">Hetzner Account + CPX22 Server</div>
+          <div class="item ok">GitHub Repo geklont</div>
+          <div class="item ok">secrets.env lokal befüllt</div>
+          <div class="item ok">SSH Key registriert</div>
+        </div>
+        <div>
+          <div class="col-title">Noch offen</div>
+          <div class="item warn">Tailscale installieren + Auth Key</div>
+          <div class="item todo">Gemini Key neu erstellen</div>
+          <div class="item todo">python deploy.py ausführen</div>
+          <div class="item todo">VPS läuft — Scouts aktiv</div>
+        </div>
+      </div>
+      <div class="hbox warn">Nach deploy.py: OHARA läuft 24/7 automatisch. Scouts starten stündlich. Vitality-Logs sichtbar.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Kalibrierung & Automation</div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot next">1</div><div class="vline next"></div></div>
+    <div class="card next">
+      <div class="card-head"><span class="card-title">Phase 1 — Manuelle Kalibrierung</span><span class="badge next">Als nächstes · ~4 Wochen</span></div>
+      <div class="card-sub">Du agierst als Wizard — bevor die Maschinen es übernehmen.</div>
+      <div class="card-desc">Schwellenwerte sind noch CALIBRATION_PENDING. Sie werden durch echte menschliche Urteile kalibriert.</div>
+      <div class="cols">
+        <div>
+          <div class="col-title">Ziele</div>
+          <div class="item todo">50+ Atome akzeptiert (3+ Domänen)</div>
+          <div class="item todo">5+ Patterns in EMERGING+</div>
+          <div class="item todo">2+ Skeptic-Cycles abgeschlossen</div>
+          <div class="item todo">Acceptance Rate 30-60% kalibriert</div>
+        </div>
+        <div>
+          <div class="col-title">Werkzeuge</div>
+          <div class="item bullet">ohara.py ingest — URL laden</div>
+          <div class="item bullet">ohara.py atom create — extrahieren</div>
+          <div class="item bullet">ohara.py review — Queue abarbeiten</div>
+          <div class="item bullet">ohara.py pattern create — Pattern</div>
+          <div class="item bullet">ohara.py god digest — Übersicht</div>
+        </div>
+      </div>
+      <div class="hbox">Exit Gate: Schwellenwerte von CALIBRATION_PENDING → LOCKED. Erst dann startet Phase 2.</div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot future">2</div><div class="vline light"></div></div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Phase 2 — Scout Automation</span><span class="badge future">Bald · ~4 Wochen</span></div>
+      <div class="card-sub">Wizards beginnen selbstständig zu arbeiten.</div>
+      <div class="card-desc">Scouts laufen automatisch stündlich. HackerNews, Reddit, Blogs. Du reviewst nur noch die Queue — extrahierst nicht mehr manuell.</div>
+      <div class="cols">
+        <div>
+          <div class="col-title">Automatisch</div>
+          <div class="item bullet">5 Wizards laufen stündlich</div>
+          <div class="item bullet">Vitality Signals getrackt</div>
+          <div class="item bullet">Anomalie-Detection aktiv</div>
+        </div>
+        <div>
+          <div class="col-title">Deine Rolle</div>
+          <div class="item bullet">Review-Queue täglich (10-15 Min)</div>
+          <div class="item bullet">Pattern-Promotions genehmigen</div>
+          <div class="item bullet">Anomalien bestätigen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot future">3</div><div class="vline light"></div></div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Phase 3 — Vollständige Wizard-Autonomie</span><span class="badge future">Später · ~6 Wochen</span></div>
+      <div class="card-sub">Wizards arbeiten 24/7 ohne Intervention.</div>
+      <div class="card-desc">SIGNAL→VALIDATED läuft automatisch. Skeptic-Cycles automatisch. Täglicher Digest (5-10 Min). Du entscheidest nur über STRUCTURAL.</div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot future">4</div><div class="vline light"></div></div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Phase 4 — Autonome Library (Level B)</span><span class="badge future">Ongoing</span></div>
+      <div class="card-sub">Die Library wird vertrauenswürdig und reich.</div>
+      <div class="card-desc">8+ aktive Domänen. 500+ Atome. 20+ Patterns. 5+ Bücher. Cross-Domain-Resonanz sichtbar.</div>
+      <div class="hbox success">Exit Gate für Phase 5: 500+ Atome · 20+ Patterns · 5+ Bücher · 3+ Monate stabiler Betrieb</div>
+    </div>
+  </div>
+
+  <div class="section-label">Die großen Meilensteine</div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot future">UI</div><div class="vline light"></div></div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Phase 5 — Library UI & Wizard Dashboard</span><span class="badge next">Großer Meilenstein</span></div>
+      <div class="card-sub">Die Library wird sichtbar. Du siehst deine Zivilisation.</div>
+      <div class="card-desc">Next.js Frontend, read-only API. Die UI spiegelt die Library wider — sie generiert kein Wissen.</div>
+      <div class="cols">
+        <div>
+          <div class="col-title">Wizard Management</div>
+          <div class="item bullet">Wizard erstellen per UI</div>
+          <div class="item bullet">Status-Karten (aktiv, Vitality)</div>
+          <div class="item bullet">Karriere-Level anzeigen</div>
+          <div class="item bullet">Kollaborations-Netzwerk</div>
+        </div>
+        <div>
+          <div class="col-title">Library Visualisierung</div>
+          <div class="item bullet">Bücherregale pro Domäne</div>
+          <div class="item bullet">Pattern-Graph</div>
+          <div class="item bullet">Widerspruchs-Map</div>
+          <div class="item bullet">Atom-Explorer</div>
+          <div class="item bullet">Epoch-Timeline</div>
+        </div>
+      </div>
+      <div class="cols" style="margin-top:10px">
+        <div>
+          <div class="col-title">Gott-Dashboard</div>
+          <div class="item bullet">STRUCTURAL Queue</div>
+          <div class="item bullet">Anomalie-Alerts</div>
+          <div class="item bullet">Kosten-Report</div>
+          <div class="item bullet">Wizard redirecten</div>
+        </div>
+        <div>
+          <div class="col-title">Räume (Phase 8+)</div>
+          <div class="item bullet">Hintergarten — Reflexion</div>
+          <div class="item bullet">Gym — Fähigkeits-Schärfung</div>
+          <div class="item bullet">Spa/Sauna — Regeneration</div>
+          <div class="item bullet">Konferenzraum — Meetings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot future">W2</div><div class="vline light"></div></div>
+    <div class="card">
+      <div class="card-head"><span class="card-title">Phase 6 — Builders' World (World 2)</span><span class="badge future">Zukunft</span></div>
+      <div class="card-sub">Wissen wird zu Aktion.</div>
+      <div class="card-desc">Builder-Agents lesen die Library und fragen: was können wir bauen, kreieren, monetarisieren? Du genehmigst — sie bauen. Ergebnisse fließen zurück in World 1.</div>
+      <div class="hbox">Clawdbot · Hermes · Paperclip · OpenClaw-Swarm — die Tools für World 2 werden hier eingesetzt.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Die Zivilisation</div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot vision">EV</div><div class="vline light"></div></div>
+    <div class="card vision">
+      <div class="card-head"><span class="card-title">Phase 7 — Wizard Evolution & Reproduktion</span><span class="badge vision">Vision</span></div>
+      <div class="card-sub">Wizards werden zu echten Persönlichkeiten mit Geschichte.</div>
+      <div class="cols">
+        <div>
+          <div class="col-title">Gedächtnis</div>
+          <div class="item bullet">Fehler werden erinnert</div>
+          <div class="item bullet">Erfolge werden belohnt</div>
+          <div class="item bullet">Funktionale Zustände</div>
+          <div class="item bullet">Domain-Einsichten akkumulieren</div>
+        </div>
+        <div>
+          <div class="col-title">Karriere & Reproduktion</div>
+          <div class="item bullet">Junior → Senior → Master</div>
+          <div class="item bullet">Beförderung durch Verdienst</div>
+          <div class="item bullet">Seniors bekommen Mitarbeiter</div>
+          <div class="item bullet">Domänen entstehen organisch</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="timeline"><div class="dot vision">∞</div></div>
+    <div class="card vision">
+      <div class="card-head"><span class="card-title">Phase 8+ — Die vollständige Zivilisation</span><span class="badge vision">Langfristige Vision</span></div>
+      <div class="card-sub">OHARA wird schlauer als sein Schöpfer.</div>
+      <div class="card-desc">Eine lebende digitale Zivilisation aus Wissenden — mit Räumen, Hierarchien, Reproduktion, emergenten Strukturen. Du bist Gott: du setzt die Gesetze, die Zivilisation führt sie aus.</div>
+      <div class="hbox vision">Das Ziel: Du sitzt eines Tages da und sagst — ich habe eine Zivilisation erschaffen die für mich denkt, lernt, urteilt und baut. Sie braucht mich nicht für die Arbeit. Sie braucht mich für die Richtung.</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
