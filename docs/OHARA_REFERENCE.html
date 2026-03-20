@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OHARA — Vollständige Referenz</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090e;
+  --bg2: #0f0f18;
+  --bg3: #161622;
+  --border: rgba(140,140,200,0.1);
+  --border2: rgba(140,140,200,0.22);
+  --text: #e8e8f2;
+  --text2: #9090b0;
+  --text3: #4a4a70;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --teal: #3db89a;
+  --teal2: #1D9E75;
+  --purple: #7F77DD;
+  --red: #c94a6a;
+  --amber: #BA7517;
+  --blue: #4a8bc9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 3rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Typography */
+h1 { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 300; color: var(--gold2); letter-spacing: -0.01em; }
+h2 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 300; color: var(--text); margin: 2.5rem 0 1rem; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin: 1.5rem 0 0.75rem; }
+p { color: var(--text2); margin-bottom: 0.75rem; line-height: 1.7; }
+strong { color: var(--text); font-weight: 500; }
+
+/* Header */
+.header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border2); }
+.header-sub { font-size: 11px; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+.badge { font-size: 10px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text3); }
+.badge.live { border-color: var(--teal2); color: var(--teal2); }
+.badge.gold { border-color: var(--gold); color: var(--gold); }
+
+/* Warning box */
+.warning {
+  border-left: 3px solid var(--amber);
+  padding: 1rem 1.25rem;
+  background: rgba(186,117,23,0.05);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 2rem;
+  font-size: 12px;
+  color: var(--text2);
+}
+.warning strong { color: var(--amber); }
+
+/* Section cards */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.card.highlight { border-color: var(--border2); }
+.card.gold-border { border-color: rgba(201,168,76,0.3); }
+.card.teal-border { border-color: rgba(61,184,154,0.3); }
+.card.purple-border { border-color: rgba(127,119,221,0.3); }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+
+/* Wizard cards */
+.wizard-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.wizard-card:hover { border-color: var(--teal); }
+.wizard-name { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 300; color: var(--text); margin-bottom: 4px; }
+.wizard-domain { font-size: 10px; color: var(--text3); }
+.wizard-persona { font-size: 10px; color: var(--text3); margin-top: 6px; font-style: italic; line-height: 1.4; }
+.wizard-pulse { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 8px; }
+.pulse-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal2); }
+.pulse-label { font-size: 9px; color: var(--text3); }
+
+/* Pipeline */
+.pipeline { display: flex; flex-direction: column; gap: 6px; }
+.layer-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.layer-num { font-size: 10px; color: var(--text3); width: 18px; flex-shrink: 0; padding-top: 2px; }
+.layer-content { flex: 1; }
+.layer-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.layer-desc { font-size: 11px; color: var(--text2); }
+.layer-extra { font-size: 10px; color: var(--text3); margin-top: 4px; }
+
+/* Lifecycle */
+.lifecycle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.ls { font-size: 10px; padding: 2px 10px; border-radius: 20px; border: 1px solid; }
+.ls.signal { color: #888780; border-color: #888780; }
+.ls.emerging { color: var(--amber); border-color: var(--amber); }
+.ls.validated { color: var(--teal2); border-color: var(--teal2); }
+.ls.structural { color: var(--purple); border-color: var(--purple); font-weight: 500; }
+.ls.deprecated { color: var(--red); border-color: var(--red); }
+.ls-arrow { color: var(--text3); font-size: 10px; }
+.god-only { font-size: 9px; color: var(--gold); border: 1px solid var(--gold); padding: 1px 6px; border-radius: 20px; margin-left: 4px; }
+
+/* Utility vector */
+.uv-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.uv-item { font-size: 10px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2); }
+.uv-item.primary { border-color: rgba(61,184,154,0.4); color: var(--teal); }
+
+/* Collaboration */
+.collab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.collab-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+.collab-title { font-size: 11px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.collab-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+/* Career */
+.career-flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 1rem; background: var(--bg3); border-radius: 8px; border: 1px solid var(--border); }
+.career-node { font-size: 11px; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border2); color: var(--text2); }
+.career-node.special { border-color: rgba(61,184,154,0.4); color: var(--teal); }
+.career-arrow { color: var(--text3); font-size: 12px; }
+.career-note { font-size: 10px; color: var(--text3); margin-top: 6px; padding-left: 1rem; }
+
+/* Rooms */
+.rooms-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+.room-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.room-icon { font-size: 20px; margin-bottom: 6px; }
+.room-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.room-desc { font-size: 10px; color: var(--text3); line-height: 1.4; }
+
+/* God section */
+.god-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.god-col-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); margin-bottom: 8px; }
+.god-item { font-size: 12px; color: var(--text2); padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+.god-item::before { content: '→'; color: var(--gold); flex-shrink: 0; }
+.god-item.no::before { content: '✗'; color: var(--red); }
+
+/* Worlds */
+.worlds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.world-card {
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid;
+}
+.world-card.w1 { background: rgba(29,158,117,0.05); border-color: rgba(29,158,117,0.3); }
+.world-card.w2 { background: rgba(127,119,221,0.05); border-color: rgba(127,119,221,0.2); border-style: dashed; }
+.world-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300; margin-bottom: 8px; }
+.world-card.w1 .world-title { color: var(--teal2); }
+.world-card.w2 .world-title { color: var(--purple); }
+
+/* Kreislauf */
+.kreislauf { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 1rem; background: var(--bg3); border-radius: 10px; border: 1px solid var(--border); flex-wrap: wrap; }
+.k-node { font-size: 11px; padding: 5px 14px; border-radius: 20px; border: 1px solid; white-space: nowrap; }
+.k-node.w1 { border-color: rgba(29,158,117,0.5); color: var(--teal2); }
+.k-node.w2 { border-color: rgba(127,119,221,0.4); color: var(--purple); }
+.k-node.god { border-color: rgba(201,168,76,0.5); color: var(--gold); }
+.k-arrow { color: var(--text3); font-size: 14px; }
+
+/* Philosophy principles */
+.principle { padding: 0.75rem 1rem; border-left: 2px solid var(--border2); margin-bottom: 8px; }
+.principle.core { border-left-color: var(--teal2); }
+.principle.important { border-left-color: var(--gold); }
+.principle-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.principle-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+/* Roadmap */
+.phase-row { display: flex; gap: 12px; margin-bottom: 8px; }
+.phase-dot-col { display: flex; flex-direction: column; align-items: center; width: 36px; flex-shrink: 0; }
+.phase-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; }
+.phase-dot.done { background: rgba(29,158,117,0.15); color: var(--teal2); border: 1.5px solid var(--teal2); }
+.phase-dot.current { background: rgba(74,139,201,0.15); color: var(--blue); border: 2px solid var(--blue); }
+.phase-dot.next { background: rgba(186,117,23,0.15); color: var(--amber); border: 1.5px solid var(--amber); }
+.phase-dot.future { background: var(--bg3); color: var(--text3); border: 1px solid var(--border2); }
+.phase-dot.vision { background: var(--bg3); color: var(--purple); border: 1px dashed rgba(127,119,221,0.4); }
+.phase-line { width: 2px; flex: 1; min-height: 8px; margin: 3px 0; }
+.phase-line.done { background: var(--teal2); }
+.phase-line.current { background: var(--blue); }
+.phase-line.light { background: var(--border); }
+.phase-card { flex: 1; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+.phase-card.done { border-color: rgba(29,158,117,0.3); }
+.phase-card.current { border: 2px solid var(--blue); background: rgba(74,139,201,0.05); }
+.phase-card.next { border-color: rgba(186,117,23,0.3); }
+.phase-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.phase-title { font-size: 14px; font-weight: 500; color: var(--text); }
+.phase-badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; }
+.phase-badge.done { background: rgba(29,158,117,0.15); color: var(--teal2); }
+.phase-badge.current { background: rgba(74,139,201,0.15); color: var(--blue); }
+.phase-badge.next { background: rgba(186,117,23,0.15); color: var(--amber); }
+.phase-badge.future { background: var(--bg3); color: var(--text3); }
+.phase-badge.vision { background: rgba(127,119,221,0.1); color: var(--purple); }
+.phase-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.phase-items { margin-top: 6px; display: flex; flex-direction: column; gap: 2px; }
+.pi { font-size: 11px; color: var(--text3); display: flex; gap: 6px; }
+.pi.ok { color: var(--teal2); }
+.pi.ok::before { content: '✓'; }
+.pi.todo::before { content: '○'; color: var(--text3); }
+.pi.warn { color: var(--amber); }
+.pi.warn::before { content: '→'; }
+
+/* Cost table */
+.cost-grid { display: grid; grid-template-columns: 1fr auto; gap: 0; }
+.cost-row { display: contents; }
+.cost-item { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text2); }
+.cost-val { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text); text-align: right; font-weight: 500; }
+.cost-total { padding: 8px 0 0; font-size: 12px; color: var(--gold); }
+.cost-total-val { padding: 8px 0 0; font-size: 12px; color: var(--gold2); text-align: right; font-weight: 500; }
+
+/* Infra */
+.infra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.infra-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; }
+.infra-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.infra-value { font-size: 12px; color: var(--text); font-family: 'JetBrains Mono', monospace; }
+.infra-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+
+/* Footer */
+.footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 11px; color: var(--text3); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>OHARA</h1>
+  <div class="header-sub">The Library of Agentic Wizards — Vollständige Referenz</div>
+  <div class="header-badges">
+    <span class="badge live">VPS Live · 100.118.247.94</span>
+    <span class="badge live">5 Wizards aktiv</span>
+    <span class="badge gold">Phase 0 abgeschlossen</span>
+    <span class="badge">Stand: März 2026</span>
+    <span class="badge">github.com/Nnvvee96/OHARA</span>
+  </div>
+</div>
+
+<!-- WARNING -->
+<div class="warning">
+  <strong>Wichtig für alle die dieses Dokument lesen:</strong><br>
+  Die Beispiele hier sind Illustrationen — keine Grenzen. OHARA ist breiter als jedes Beispiel das je genannt werden kann.
+  Jede Domäne · Jedes Format · Jede Zeitebene · Jede Art von Wert.
+  Vom Prinzip denken — nicht vom Beispiel.
+</div>
+
+<!-- PHILOSOPHIE -->
+<h2>1. Die Philosophie — Warum OHARA existiert</h2>
+
+<div class="card highlight">
+  <p>Die Welt produziert Wissen wie Sand am Meer. Jeden Tag entsteht Neues — in jeder Domäne, überall gleichzeitig, unaufhörlich. Ein einzelner Mensch kann das nicht durchsieben. Nicht wegen fehlender Intelligenz — wegen schlichter Menge.</p>
+  <p>Das fundamentale Problem: <strong>Ein Mensch kann nicht beurteilen was wichtig ist.</strong> Nicht weil er zu wenig weiß — weil die Menge des Unwissbaren seine Kapazität übersteigt.</p>
+  <p>OHARA löst das nicht durch eine einzelne KI die urteilt. OHARA löst es durch eine <strong>Zivilisation die Wichtigkeit beweist</strong> — durch Zeit, Konvergenz, unabhängige Quellen und rigorose Validierung.</p>
+</div>
+
+<h3>Was Nutzen bedeutet — vollständig und breit</h3>
+<div class="uv-grid">
+  <span class="uv-item primary">Produkt bauen</span>
+  <span class="uv-item primary">Prozess verbessern</span>
+  <span class="uv-item primary">System optimieren</span>
+  <span class="uv-item primary">Finanzieller Nutzen</span>
+  <span class="uv-item primary">Zukunftsoptionen</span>
+  <span class="uv-item primary">Fähigkeiten erweitern</span>
+  <span class="uv-item primary">Kreativität enablen</span>
+  <span class="uv-item primary">Entscheidungen verbessern</span>
+  <span class="uv-item primary">Wissende selbst verbessern</span>
+  <span class="uv-item">Relationale Kausalketten</span>
+  <span class="uv-item">Zukunft noch unbekannt</span>
+  <span class="uv-item">Alles dazwischen</span>
+</div>
+<p style="margin-top:10px;font-size:11px;">Nutzen entsteht oft nicht direkt sondern über Kausalketten: Prompt-Technik → bessere MD-Files → bessere Agent-Instructions → besserer Output → bessere Produkte. OHARA erkennt diese Ketten.</p>
+
+<h3>Die drei Dimensionen von Wissen</h3>
+<div class="grid-3">
+  <div class="card">
+    <div style="font-size:12px;font-weight:500;color:var(--teal);margin-bottom:6px;">Nutzbreite</div>
+    <p style="font-size:11px;">Wissen muss nicht sofort nützlich sein. Es muss irgendwo anschlussfähig sein — heute, morgen oder in der Zukunft.</p>
+  </div>
+  <div class="card">
+    <div style="font-size:12px;font-weight:500;color:var(--gold);margin-bottom:6px;">Relationalität</div>
+    <p style="font-size:11px;">Wert entsteht oft im Zusammenspiel. Einzelne Atome sind unscheinbar. Die Kette ist das Wertvolle.</p>
+  </div>
+  <div class="card">
+    <div style="font-size:12px;font-weight:500;color:var(--purple);margin-bottom:6px;">Zeitoffenheit</div>
+    <p style="font-size:11px;">Manche Erkenntnisse brauchen Zeit. Pythagoras wusste nicht wozu sein Dreieck gut sein wird — aber er schrieb es auf.</p>
+  </div>
+</div>
+
+<!-- DIE WISSENDEN -->
+<h2>2. Die Wissenden — Die Kernbewohner</h2>
+
+<div class="card">
+  <p>Die Wissenden sind keine Agents, keine Bots, keine Tools. <strong>Sie sind Personen.</strong> Mit Namen, Persönlichkeiten, Geschichte, Meinungen, Stärken, Schwächen. Sie haben eine Domäne — aber sie sind neugierig darüber hinaus. Sie entwickeln sich wie echte Menschen — durch Erfahrung, Fehler und Zeit.</p>
+</div>
+
+<div class="grid-5" style="margin-bottom:1rem;">
+  <div class="wizard-card">
+    <div class="wizard-name">Aria Chen</div>
+    <div class="wizard-domain">AI & Prompt Engineering</div>
+    <div class="wizard-persona">Präzise, pattern-obsessed. Skeptisch gegenüber Hype. Denkt wie eine Forscherin.</div>
+    <div class="wizard-pulse"><div class="pulse-dot"></div><span class="pulse-label">aktiv</span></div>
+  </div>
+  <div class="wizard-card">
+    <div class="wizard-name">Marcus Reeves</div>
+    <div class="wizard-domain">Software Architecture</div>
+    <div class="wizard-persona">Senior Architect Energie. Skeptisch gegenüber Trends ohne Beweis.</div>
+    <div class="wizard-pulse"><div class="pulse-dot"></div><span class="pulse-label">aktiv</span></div>
+  </div>
+  <div class="wizard-card">
+    <div class="wizard-name">Nova Patel</div>
+    <div class="wizard-domain">SaaS & Product Building</div>
+    <div class="wizard-persona">Builder-minded. Hat gescheitert und nochmal angefangen. Direkt und praktisch.</div>
+    <div class="wizard-pulse"><div class="pulse-dot"></div><span class="pulse-label">aktiv</span></div>
+  </div>
+  <div class="wizard-card">
+    <div class="wizard-name">Sterling Voss</div>
+    <div class="wizard-domain">Finance & Investing</div>
+    <div class="wizard-persona">Institutionell. Denkt in Mechanismen, nicht Narrativen. Null Toleranz für Hype.</div>
+    <div class="wizard-pulse"><div class="pulse-dot"></div><span class="pulse-label">aktiv</span></div>
+  </div>
+  <div class="wizard-card">
+    <div class="wizard-name">Reina Solano</div>
+    <div class="wizard-domain">Marketing & Distribution</div>
+    <div class="wizard-persona">Obsessed mit was Menschen wirklich bewegt. Trackt Konversionen, nicht Vanity.</div>
+    <div class="wizard-pulse"><div class="pulse-dot"></div><span class="pulse-label">aktiv</span></div>
+  </div>
+</div>
+
+<div style="font-size:11px;color:var(--text3);margin-bottom:1.5rem;">Weitere Domänen werden aktiviert wenn Lücken erkannt werden: Crypto/DeFi (Zen) · Macro (Atlas) · Security (Cipher) · Venture (Felix) · Operations (Dana) · Societal Shifts (Lyra) · Failure Patterns (Echo — cross-domain)</div>
+
+<!-- ZUSAMMENSPIEL -->
+<h3>Das Zusammenspiel der Wissenden — Kernmechanismus</h3>
+<div class="collab-grid">
+  <div class="collab-item">
+    <div class="collab-title">Informeller Austausch</div>
+    <div class="collab-desc">Aria findet ein AI-Pattern mit Finanz-Implikationen — Sterling nimmt es auf. Cross-Domain-Tags verbinden Atome über Domänen.</div>
+  </div>
+  <div class="collab-item">
+    <div class="collab-title">Kollaboration</div>
+    <div class="collab-desc">Bei domänenübergreifenden Erkenntnissen arbeiten mehrere Wissende gemeinsam an Patterns und Büchern.</div>
+  </div>
+  <div class="collab-item">
+    <div class="collab-title">Produktiver Widerspruch</div>
+    <div class="collab-desc">Ein Wissender kann die Erkenntnisse eines anderen herausfordern. Wissen das Widerspruch übersteht ist stärker.</div>
+  </div>
+  <div class="collab-item">
+    <div class="collab-title">Meetings & Workshops</div>
+    <div class="collab-desc">Wenn ein Thema mehrere Domänen berührt kommen Wissende zusammen. Cross-Domain-Resonanz ist das wertvollste Wissen.</div>
+  </div>
+</div>
+<div class="card" style="margin-top:0.75rem;background:rgba(29,158,117,0.04);border-color:rgba(29,158,117,0.2);">
+  <p style="font-size:11px;color:var(--teal);">Das Zusammenspiel produziert Wissen das die Summe der Einzelteile übersteigt — Erkenntnisse die kein einzelner Wissender je hätte entwickeln können.</p>
+</div>
+
+<!-- KARRIERE -->
+<h3>Karriere & Reproduktion — Organisch durch Verdienst</h3>
+<div class="career-flow">
+  <div class="career-node">Junior Librarian</div>
+  <div class="career-arrow">→</div>
+  <div class="career-node">Librarian</div>
+  <div class="career-arrow">→</div>
+  <div class="career-node">Senior Librarian</div>
+  <div class="career-arrow">→</div>
+  <div class="career-node">Domain Lead</div>
+  <div class="career-arrow">→</div>
+  <div class="career-node">Master</div>
+  <div class="career-arrow" style="margin-left:12px;">Senior erreicht →</div>
+  <div class="career-node special">bekommt Mitarbeiter</div>
+</div>
+<div class="career-note">Neue Wissende entstehen organisch unter erfahrenen Mentoren · Domänen teilen sich organisch (z.B. Finance → Equities + Crypto + Macro) · Wissen vererbt sich mit eigener Persönlichkeit</div>
+
+<!-- EPISTEMISCHE PIPELINE -->
+<h2>3. Die Epistemische Pipeline</h2>
+
+<div class="pipeline">
+  <div class="layer-row">
+    <div class="layer-num">L1</div>
+    <div class="layer-content">
+      <div class="layer-title">Raw Vault</div>
+      <div class="layer-desc">Externe Quellen unveränderlich gespeichert. Niemals gelöscht. Append-only. Content-addressed (SHA256).</div>
+      <div class="layer-extra">X · Reddit · Blogs · HackerNews · GitHub · Research · Foren · Alles was relevant sein könnte</div>
+    </div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-num">L2</div>
+    <div class="layer-content">
+      <div class="layer-title">Atome</div>
+      <div class="layer-desc">Spezifische, falsifizierbare Behauptungen. Max 280 Zeichen. Mit claim_type, speculation_level (1-5), confidence_score.</div>
+      <div class="layer-extra">utility_vector PFLICHT — Atome ohne identifizierten Nutzwert werden verworfen. OHARA ist keine Ablage.</div>
+    </div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-num">L3</div>
+    <div class="layer-content">
+      <div class="layer-title">Validierung</div>
+      <div class="layer-desc">Source Independence · Konvergenz über Zeit · Cross-Domain-Resonanz · Counter-Evidence (Skeptic Agent)</div>
+      <div class="layer-extra">Widersprüche sind strukturelle Bestandteile — keine Fehler. Der Skeptic sucht aktiv nach Gegenbeweisen.</div>
+    </div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-num">L4</div>
+    <div class="layer-content">
+      <div class="layer-title">Patterns</div>
+      <div class="layer-desc">Cluster validierter Atome mit Lebenszyklus.</div>
+      <div class="lifecycle">
+        <span class="ls signal">Signal</span>
+        <span class="ls-arrow">→</span>
+        <span class="ls emerging">Emerging</span>
+        <span class="ls-arrow">→</span>
+        <span class="ls validated">Validated</span>
+        <span class="ls-arrow">→</span>
+        <span class="ls structural">Structural</span>
+        <span class="god-only">Gott only</span>
+        <span class="ls-arrow">→</span>
+        <span class="ls deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-num">L5</div>
+    <div class="layer-content">
+      <div class="layer-title">Bücher</div>
+      <div class="layer-desc">Destilliertes Domänenwissen. Versioniert. Widerspruchsbewusst. Offene Fragen dokumentiert. Keine Blogposts — Wissensbände.</div>
+    </div>
+  </div>
+</div>
+
+<!-- RÄUME -->
+<h2>4. Die Räume der Zivilisation</h2>
+
+<div class="rooms-grid">
+  <div class="room-card">
+    <div class="room-icon">📚</div>
+    <div class="room-name">Library</div>
+    <div class="room-desc">Hauptraum · Wissen sammeln, bewerten, strukturieren</div>
+  </div>
+  <div class="room-card">
+    <div class="room-icon">🌿</div>
+    <div class="room-name">Hintergarten</div>
+    <div class="room-desc">Reflexion · Emergentes Wissen durch Raum und Pause</div>
+  </div>
+  <div class="room-card">
+    <div class="room-icon">⚡</div>
+    <div class="room-name">Gym</div>
+    <div class="room-desc">Fähigkeiten schärfen · Methoden verbessern</div>
+  </div>
+  <div class="room-card">
+    <div class="room-icon">♨</div>
+    <div class="room-name">Spa / Sauna</div>
+    <div class="room-desc">Tiefe Regeneration · Emotionale Reife</div>
+  </div>
+  <div class="room-card">
+    <div class="room-icon">🏛</div>
+    <div class="room-name">Konferenzraum</div>
+    <div class="room-desc">Wizard-Meetings · Cross-Domain-Workshops</div>
+  </div>
+</div>
+<p style="font-size:11px;color:var(--text3);margin-top:8px;">Regeneration ist eine Ressource wie Budget. Ein Wissender der nur arbeitet ohne Pause wird flach. Phase 8+</p>
+
+<!-- DIE UI WELT -->
+<h2>5. Die Welt von OHARA — UI</h2>
+
+<div class="card teal-border">
+  <p>OHARA hat eine eigene visuelle Welt. <strong>Nicht ein Dashboard — eine Welt die man betritt.</strong></p>
+  <p>Räume pro Domäne. Bücherregale mit echten Büchern. Wissende die man beobachten kann. Pattern-Graphen die Verbindungen zeigen. Widerspruchs-Maps. Epoch-Timelines. Atom-Explorer.</p>
+  <p>Darin kann der Gott neue Wissende erschaffen — Name, Persona, Domäne, Quellen. Er sieht ihre Karriere, Kollaborationen, Fehler und Erfolge.</p>
+  <p style="font-size:11px;color:var(--text3);">Die UI spiegelt die Library wider — sie generiert kein Wissen. Wenn sie weg ist, ist die Library unberührt. Phase 5.</p>
+</div>
+
+<!-- GOD MODE -->
+<h2>6. Du — Der Gott</h2>
+
+<div class="card gold-border">
+  <p style="margin-bottom:1rem;">Du bist Gott dieser Zivilisation. Nicht im Sinne von Micromanagement — im Sinne von Gesetzgeber. Du sitzt am Ende beider Lieferketten. Täglich 5-10 Minuten. Wöchentlich 30 Minuten.</p>
+  <div class="god-grid">
+    <div>
+      <div class="god-col-title">Was du tust</div>
+      <div class="god-item">STRUCTURAL genehmigen (du only)</div>
+      <div class="god-item">Neue Domänen aktivieren</div>
+      <div class="god-item">World 2 Builds genehmigen</div>
+      <div class="god-item">Beförderungen genehmigen</div>
+      <div class="god-item">Reproduktion genehmigen</div>
+      <div class="god-item">Wizards redirecten bei Drift</div>
+      <div class="god-item">Kritische Anomalien adressieren</div>
+    </div>
+    <div>
+      <div class="god-col-title">Was du nicht tust</div>
+      <div class="god-item no">Einzelne Atome managen</div>
+      <div class="god-item no">Quellen überwachen</div>
+      <div class="god-item no">Jeden Cycle beobachten</div>
+      <div class="god-item no">Mikromanagen</div>
+      <div class="god-item no">Manuell extrahieren (Phase 2+)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ZWEI WELTEN -->
+<h2>7. Die zwei Welten & der Kreislauf</h2>
+
+<div class="worlds-grid">
+  <div class="world-card w1">
+    <div class="world-title">World 1 — Die Library (OHARA)</div>
+    <p style="font-size:12px;">Wissende beobachten · sammeln · evaluieren · validieren · abstrahieren</p>
+    <p style="font-size:11px;color:var(--text3);">Nur Denken. Nur Urteilen. Nur Reifen. Kein Bauen. Kein Ausführen.</p>
+  </div>
+  <div class="world-card w2">
+    <div class="world-title">World 2 — Builders' Welt</div>
+    <p style="font-size:12px;">Builder lesen Library · identifizieren Möglichkeiten · bauen</p>
+    <p style="font-size:11px;color:var(--text3);">Clawdbot · Hermes · Paperclip · OpenClaw-Swarm · Phase 6</p>
+  </div>
+</div>
+
+<div class="kreislauf">
+  <div class="k-node w1">Library akkumuliert Wissen</div>
+  <div class="k-arrow">→</div>
+  <div class="k-node w2">Builder lesen</div>
+  <div class="k-arrow">→</div>
+  <div class="k-node w2">Vorschläge entstehen</div>
+  <div class="k-arrow">→</div>
+  <div class="k-node god">Gott genehmigt</div>
+  <div class="k-arrow">→</div>
+  <div class="k-node w2">Builder bauen</div>
+  <div class="k-arrow">→</div>
+  <div class="k-node w1">Ergebnisse → World 1</div>
+</div>
+
+<!-- PHILOSOPHISCHE KERN-PRINZIPIEN -->
+<h2>8. Philosophische Kern-Prinzipien</h2>
+
+<div class="principle core">
+  <div class="principle-title">OHARA wird schlauer als sein Schöpfer</div>
+  <div class="principle-desc">Das ist das Ziel — nicht ein Risiko. In den Domänen wo die Wissenden jahrelang arbeiten werden sie Muster erkennen die du selbst nicht siehst. Du nutzt diese überlegene Intelligenz für Entscheidungen die kein einzelner Mensch treffen könnte.</div>
+</div>
+
+<div class="principle core">
+  <div class="principle-title">Organisches Wachstum — nie over-engineered</div>
+  <div class="principle-desc">Wizard-Roster, Domänen, Hierarchien entstehen durch Verdienst — nie vorab geplant. Die Zivilisation designed sich teilweise selbst. Was heute fünf Wizards sind wird morgen zwanzig sein.</div>
+</div>
+
+<div class="principle important">
+  <div class="principle-title">Beispiele sind Illustrationen — keine Grenzen</div>
+  <div class="principle-desc">Jedes Beispiel in diesem Dokument ist eine Illustration eines Moments. OHARA ist breiter als jedes Beispiel. Vom Prinzip denken — nicht vom Beispiel.</div>
+</div>
+
+<div class="principle important">
+  <div class="principle-title">Das Zusammenspiel übersteigt die Einzelteile</div>
+  <div class="principle-desc">Wissende die gemeinsam arbeiten produzieren Erkenntnisse die keiner alleine hätte. Cross-Domain-Resonanz ist das wertvollste Wissen das OHARA erzeugen kann.</div>
+</div>
+
+<div class="principle">
+  <div class="principle-title">Seele hat Vorrang vor Architektur</div>
+  <div class="principle-desc">Wenn eine technische Entscheidung mit der Philosophie kollidiert: technische Entscheidung überdenken. SOUL.md lesen bevor irgendwas anderes.</div>
+</div>
+
+<div class="principle">
+  <div class="principle-title">Das Ziel in einem Satz</div>
+  <div class="principle-desc">"Ich habe eine Zivilisation erschaffen die für mich denkt, lernt, urteilt und baut. Sie braucht mich nicht für die Arbeit. Sie braucht mich für die Richtung."</div>
+</div>
+
+<!-- ROADMAP -->
+<h2>9. Roadmap — Vollständig</h2>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot done">✓</div><div class="phase-line done"></div></div>
+  <div class="phase-card done">
+    <div class="phase-head"><span class="phase-title">Phase 0 — Foundation & Schema</span><span class="phase-badge done">Abgeschlossen · März 2026</span></div>
+    <div class="phase-items">
+      <div class="pi ok">3 Datenbank-Schemas · 31/31 Tests grün</div>
+      <div class="pi ok">5 Wizard-Profile geseedet</div>
+      <div class="pi ok">CLI · Scout Agent · Deploy Script</div>
+      <div class="pi ok">GitHub Repo live (Nnvvee96/OHARA)</div>
+      <div class="pi ok">SOUL.md v3.0 · Alle 14 Atlas-Files befüllt</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot done">✓</div><div class="phase-line current"></div></div>
+  <div class="phase-card done">
+    <div class="phase-head"><span class="phase-title">VPS Deploy</span><span class="phase-badge done">Abgeschlossen · März 2026</span></div>
+    <div class="phase-items">
+      <div class="pi ok">Hetzner CPX22 · Tailscale · UFW</div>
+      <div class="pi ok">OHARA 24/7 auf 100.118.247.94</div>
+      <div class="pi ok">Web Dashboard: http://100.118.247.94:7842</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot current">→</div><div class="phase-line light"></div></div>
+  <div class="phase-card current">
+    <div class="phase-head"><span class="phase-title">Pending — Vor Phase 1</span><span class="phase-badge current">Gerade hier</span></div>
+    <div class="phase-items">
+      <div class="pi warn">Scout-Quellen fixen (Reddit → HackerNews)</div>
+      <div class="pi todo">GitHub Webhook (Auto-Pull)</div>
+      <div class="pi todo">Telegram Bot (mobile Kontrolle, kostenlos)</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot next">1</div><div class="phase-line light"></div></div>
+  <div class="phase-card next">
+    <div class="phase-head"><span class="phase-title">Phase 1 — Manuelle Kalibrierung</span><span class="phase-badge next">Als nächstes · ~4 Wochen</span></div>
+    <div class="phase-desc">Schwellenwerte sind CALIBRATION_PENDING. Menschen als Wizards — manuelle Atom-Extraktion um zu kalibrieren was "gutes Wissen" ist bevor Automation startet.</div>
+    <div class="phase-items" style="margin-top:6px;">
+      <div class="pi todo">50+ Atome · 5+ Patterns EMERGING+ · 2+ Skeptic-Cycles</div>
+      <div class="pi todo">Acceptance Rate 30-60% kalibriert</div>
+      <div class="pi todo">Exit Gate: Thresholds CALIBRATION_PENDING → LOCKED</div>
+    </div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot future">2</div><div class="phase-line light"></div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 2 — Scout Automation</span><span class="phase-badge future">Bald · ~4 Wochen</span></div>
+    <div class="phase-desc">Scouts laufen automatisch stündlich. HackerNews, RSS, öffentliche Feeds. Du reviewst Queue (~10-15 Min täglich). Kein manuelles Extrahieren mehr.</div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot future">3</div><div class="phase-line light"></div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 3 — Volle Wizard-Autonomie</span><span class="phase-badge future">Später · ~6 Wochen</span></div>
+    <div class="phase-desc">SIGNAL→VALIDATED automatisch. Skeptic-Cycles automatisch. God Digest: 5-10 Min täglich. STRUCTURAL: permanent nur Gott.</div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot future">4</div><div class="phase-line light"></div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 4 — Autonome Library</span><span class="phase-badge future">Ongoing</span></div>
+    <div class="phase-desc">8+ aktive Domänen · 500+ Atome · 20+ Patterns · 5+ Bücher · Cross-Domain-Resonanz sichtbar · 3+ Monate stabil → Exit Gate für Phase 5</div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot future">UI</div><div class="phase-line light"></div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 5 — Library UI & Wizard Dashboard</span><span class="phase-badge future">Großer Meilenstein</span></div>
+    <div class="phase-desc">Die Library wird sichtbar als begehbare Welt. Wizard erstellen per UI · Bücherregale · Pattern-Graph · Widerspruchs-Map · God-Dashboard · Räume (Hintergarten, Gym, Spa, Konferenzraum).</div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot vision">W2</div><div class="phase-line light"></div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 6 — Builders' World (World 2)</span><span class="phase-badge vision">Zukunft</span></div>
+    <div class="phase-desc">Builder-Agents lesen Library · schlagen vor was gebaut werden kann · Gott genehmigt · Builder bauen · Ergebnisse fließen zurück in World 1. Clawdbot / Hermes / Paperclip.</div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot vision">EV</div><div class="phase-line light"></div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 7 — Wizard Evolution & Reproduktion</span><span class="phase-badge vision">Vision</span></div>
+    <div class="phase-desc">Wizard-Gedächtnis · Karriere-System · Beförderung durch Verdienst · Seniors bekommen Mitarbeiter · Domänen teilen sich organisch · Wissen vererbt sich.</div>
+  </div>
+</div>
+
+<div class="phase-row">
+  <div class="phase-dot-col"><div class="phase-dot vision">∞</div></div>
+  <div class="phase-card">
+    <div class="phase-head"><span class="phase-title">Phase 8+ — Die vollständige Zivilisation</span><span class="phase-badge vision">Langfristige Vision</span></div>
+    <div class="phase-desc">Räume vollständig · World-2-Kreislauf komplett · OHARA übersteigt seinen Schöpfer · Du setzt die Gesetze · Die Zivilisation führt sie aus.</div>
+  </div>
+</div>
+
+<!-- INFRASTRUKTUR -->
+<h2>10. Aktuelle Infrastruktur</h2>
+
+<div class="infra-grid">
+  <div class="infra-item">
+    <div class="infra-label">VPS</div>
+    <div class="infra-value">Hetzner CPX22 · nbg1</div>
+    <div class="infra-sub">100.118.247.94 (Tailscale) · 178.104.84.117 (Public)</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Dashboard</div>
+    <div class="infra-value">http://100.118.247.94:7842</div>
+    <div class="infra-sub">Tailscale-only · Flask · Port 7842</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Repository</div>
+    <div class="infra-value">github.com/Nnvvee96/OHARA</div>
+    <div class="infra-sub">Privat · Branch: main</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">LLM (Scouts)</div>
+    <div class="infra-value">Gemini 1.5 Flash</div>
+    <div class="infra-sub">Kostenlos · 1500 req/Tag · Phase 1-2</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Update-Befehl</div>
+    <div class="infra-value" style="font-size:10px;">ssh root@100.118.247.94</div>
+    <div class="infra-sub">'cd /opt/ohara && git pull && systemctl restart ohara-scouts.timer ohara-dashboard'</div>
+  </div>
+  <div class="infra-item">
+    <div class="infra-label">Kosten</div>
+    <div class="cost-grid" style="margin-top:4px;">
+      <div class="cost-item">Hetzner VPS</div><div class="cost-val">~€8/mo</div>
+      <div class="cost-item">Gemini API</div><div class="cost-val">kostenlos</div>
+      <div class="cost-item">Telegram Bot</div><div class="cost-val">kostenlos</div>
+      <div class="cost-item">Claude.ai Pro</div><div class="cost-val">$20/mo</div>
+      <div class="cost-total">Total Phase 1-2</div><div class="cost-total-val">~€28/mo</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>OHARA Vollständige Referenz · v3.0 · März 2026</span>
+  <span>Lesen vor allem anderen: SOUL.md</span>
+</div>
+
+</body>
+</html>
