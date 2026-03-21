@@ -102,3 +102,12 @@ Status: OPEN — nächste Session
 Incident: Kein Auto-Pull auf VPS nach Push.
 Resolution: GitHub Webhook + Dashboard Endpoint. Pending.
 Status: OPEN — nächste Session
+
+Decision K: Source Adapter Architecture — API/Feed first
+  Rationale: Reddit direkt auf VPS = 403 geblockt.
+  Lösung: Strukturierte Source Adapters pro Quelle.
+  Phase 1: HackerNews API + RSS (kein Auth nötig)
+  Phase 2: Reddit API (reddit.com/prefs/apps) + X API (console.x.com)
+  Phase 3: Browser-Crawl nur als Fallback
+  Regel: API or Feed first. Browser second. Scraping last.
+  Referenz: ChatGPT-Recherche März 2026 — Source Adapter Blueprint

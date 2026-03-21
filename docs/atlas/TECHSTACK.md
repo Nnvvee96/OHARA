@@ -82,3 +82,43 @@ NEVER: STRUCTURAL Promotion automatisieren
 NEVER: cx11/cx22 als Hetzner Server-Typ (deprecated)
 NEVER: SSH Key mit Passwort für automatisierte Scripts
 NEVER: Reddit als primäre VPS-Quelle (403 blocked)
+
+## 9. Source Adapter Architecture (LOCKED)
+
+Prinzip: API or Feed first. Browser second. Scraping last.
+Nie "das Internet durchforsten" als einzigen Mechanismus.
+
+OHARA hat Source Adapters — pro Quelle ein definierter Adapter:
+
+PHASE 1 (jetzt — stabil, kostenlos):
+  HackerNews Adapter → offizielle Firebase API (kein Auth)
+  RSS Adapter → öffentliche Feeds (Blogs, Substack, GitHub Releases)
+
+PHASE 2 (Reddit + X):
+  Reddit Adapter → API (reddit.com/prefs/apps → client_id/secret)
+    Config: Subreddits pro Wizard, min_score, max_age_hours
+    Polling: alle 3h pro Subreddit
+  X Adapter → offizielle API (console.x.com)
+    Pfad A: eigene Bookmarks (high-signal, manuell gefiltert)
+    Pfad B: thematische Suche + Listen (autonome Discovery)
+
+PHASE 3 (Fallback):
+  Browser-Crawl → nur für Quellen ohne API/RSS
+    Streng rate-limited. Niemals als Standardpfad.
+
+Pro Wizard YAML-Config:
+  sources:
+    reddit:
+      subreddits: [programming, webdev, SaaS, MachineLearning]
+      min_score: 5
+      max_age_hours: 24
+    x:
+      modes: [bookmarks, search]
+      queries: ['"AI agents" AND "SaaS"', '"vibe coding"']
+    rss:
+      feeds: [hnrss.org/frontpage, hnrss.org/newest?points=50]
+
+Anti-Pattern NEVER:
+  NEVER: Reddit direkt ohne API (403 auf VPS-IPs)
+  NEVER: Browser-Scraping als primäre Quelle
+  NEVER: Quellen ohne definierte Adapter
