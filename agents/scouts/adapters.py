@@ -75,13 +75,39 @@ class HackerNewsAdapter(BaseAdapter):
                     if not item.get("title"):
                         continue
 
-                    text = item.get("title", "")
+                    title = item.get("title", "")
+                    text = title
+                    
+                    # Add HN discussion text if available
                     if item.get("text"):
                         text += "\n\n" + item["text"]
+                    
+                    # Try to fetch article content for substance
+                    article_url = item.get("url")
+                    if article_url and len(text) < 200:
+                        try:
+                            article_req = urllib.request.Request(
+                                article_url,
+                                headers={"User-Agent": "OHARA/1.0 knowledge-librarian"}
+                            )
+                            with urllib.request.urlopen(article_req, timeout=8) as ar:
+                                raw = ar.read(50000)  # Max 50KB
+                                encoding = ar.headers.get_content_charset("utf-8")
+                            html_content = raw.decode(encoding, errors="replace")
+                            # Basic HTML stripping
+                            import re
+                            clean = re.sub(r"<script[^>]*>.*?</script>", " ", html_content, flags=re.DOTALL)
+                            clean = re.sub(r"<style[^>]*>.*?</style>", " ", clean, flags=re.DOTALL)
+                            clean = re.sub(r"<[^>]+>", " ", clean)
+                            clean = re.sub(r"\s+", " ", clean).strip()
+                            if len(clean) > 200:
+                                text += "\n\n" + clean[:4000]
+                        except Exception:
+                            pass  # URL fetch failed, use title only
 
                     results.append(SourceItem(
                         url=item.get("url") or f"https://news.ycombinator.com/item?id={sid}",
-                        title=item.get("title", ""),
+                        title=title,
                         text=text[:6000],
                         source_name="hackernews",
                         source_tier="aggregator",

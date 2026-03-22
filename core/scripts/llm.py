@@ -1,94 +1,59 @@
 """
 OHARA — LLM Client
-Provider-agnostic wrapper. Swap Gemini ↔ Anthropic via .env LLM_PROVIDER.
-All calls go through this module. Never import provider SDKs directly elsewhere.
+Provider-agnostic. Swap via LLM_PROVIDER in .env.
+Aktuell: google-genai SDK mit gemini-2.5-flash-lite
 """
 
 import os
 import json
-import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env from project root
 load_dotenv(Path(__file__).parent.parent.parent / ".env")
 
-PROVIDER       = os.getenv("LLM_PROVIDER", "gemini")
-GEMINI_KEY     = os.getenv("GEMINI_API_KEY", "")
-ANTHROPIC_KEY  = os.getenv("ANTHROPIC_API_KEY", "")
-MODEL_EXTRACT  = os.getenv("LLM_MODEL_EXTRACTION", "gemini-1.5-flash")
-MODEL_REASON   = os.getenv("LLM_MODEL_REASONING", "gemini-1.5-pro")
-
-# ============================================================
-# GEMINI CLIENT
-# ============================================================
-
-def _gemini_call(prompt: str, model: str, temperature: float = 0.2) -> str:
-    import google.generativeai as genai
-    genai.configure(api_key=GEMINI_KEY)
-    m = genai.GenerativeModel(
-        model,
-        generation_config=genai.types.GenerationConfig(
-            temperature=temperature,
-            max_output_tokens=2048,
-        )
-    )
-    response = m.generate_content(prompt)
-    return response.text
-
-# ============================================================
-# ANTHROPIC CLIENT (ready for Phase 3+ swap)
-# ============================================================
-
-def _anthropic_call(prompt: str, model: str, temperature: float = 0.2) -> str:
-    import anthropic
-    client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
-    message = client.messages.create(
-        model=model,
-        max_tokens=2048,
-        temperature=temperature,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return message.content[0].text
-
-# ============================================================
-# PUBLIC INTERFACE
-# ============================================================
-
-def extract(prompt: str, temperature: float = 0.2) -> str:
-    """Call the extraction-tier model."""
-    if PROVIDER == "gemini":
-        return _gemini_call(prompt, MODEL_EXTRACT, temperature)
-    elif PROVIDER == "anthropic":
-        return _anthropic_call(prompt, MODEL_EXTRACT, temperature)
-    else:
-        raise ValueError(f"Unknown LLM_PROVIDER: {PROVIDER}")
-
-def reason(prompt: str, temperature: float = 0.3) -> str:
-    """Call the reasoning-tier model (skeptic, validator)."""
-    if PROVIDER == "gemini":
-        return _gemini_call(prompt, MODEL_REASON, temperature)
-    elif PROVIDER == "anthropic":
-        return _anthropic_call(prompt, MODEL_REASON, temperature)
-    else:
-        raise ValueError(f"Unknown LLM_PROVIDER: {PROVIDER}")
-
-def parse_json_response(raw: str) -> list | dict:
-    """
-    Safely parse JSON from LLM output.
-    LLMs often wrap JSON in markdown fences — strip them.
-    """
-    cleaned = raw.strip()
-    if cleaned.startswith("```"):
-        lines = cleaned.split("\n")
-        # Remove first and last fence lines
-        lines = [l for l in lines if not l.strip().startswith("```")]
-        cleaned = "\n".join(lines).strip()
-    return json.loads(cleaned)
+LLM_PROVIDER         = os.getenv("LLM_PROVIDER", "gemini")
+GEMINI_API_KEY       = os.getenv("GEMINI_API_KEY", "")
+EXTRACTION_MODEL     = os.getenv("LLM_EXTRACTION_MODEL", "gemini-2.5-flash-lite")
+REASONING_MODEL      = os.getenv("LLM_REASONING_MODEL", "gemini-2.5-flash-lite")
 
 def model_info() -> dict:
     return {
-        "provider": PROVIDER,
-        "extraction_model": MODEL_EXTRACT,
-        "reasoning_model": MODEL_REASON,
+        "provider": LLM_PROVIDER,
+        "extraction_model": EXTRACTION_MODEL,
+        "reasoning_model": REASONING_MODEL,
     }
+
+def _call_gemini(prompt: str, model: str) -> str:
+    from google import genai
+    client = genai.Client(api_key=GEMINI_API_KEY)
+    response = client.models.generate_content(
+        model=model,
+        contents=prompt,
+    )
+    return response.text
+
+def extract(prompt: str) -> str:
+    if LLM_PROVIDER == "gemini":
+        return _call_gemini(prompt, EXTRACTION_MODEL)
+    raise ValueError(f"Unknown LLM provider: {LLM_PROVIDER}")
+
+def reason(prompt: str) -> str:
+    if LLM_PROVIDER == "gemini":
+        return _call_gemini(prompt, REASONING_MODEL)
+    raise ValueError(f"Unknown LLM provider: {LLM_PROVIDER}")
+
+def parse_json_response(text: str) -> list | dict:
+    text = text.strip()
+    # Strip markdown fences
+    if text.startswith("```"):
+        lines = text.split("\n")
+        text = "\n".join(lines[1:-1] if lines[-1] == "```" else lines[1:])
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        # Try to extract JSON array from text
+        import re
+        match = re.search(r"\[.*\]", text, re.DOTALL)
+        if match:
+            return json.loads(match.group())
+        return []
