@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS governance_actions (
   -- Reference to knowledge.db patterns (no FK across DBs)
 
   triggered_by        TEXT NOT NULL,
-  -- anomaly_threshold name or 'human' or 'god'
+  -- anomaly_threshold name or 'human' or 'king'
   triggered_at        TEXT NOT NULL,
 
   -- Resolution
@@ -262,8 +262,8 @@ CREATE INDEX IF NOT EXISTS idx_gov_type    ON governance_actions(action_type);
 CREATE TABLE IF NOT EXISTS operators (
   id          TEXT PRIMARY KEY,
   name        TEXT NOT NULL,
-  role        TEXT NOT NULL DEFAULT 'god'
-    CHECK(role IN ('god','overseer','observer')),
+  role        TEXT NOT NULL DEFAULT 'king'
+    CHECK(role IN ('king','overseer','observer')),
   -- god: full permissions including STRUCTURAL promotion
   -- overseer: can review and redirect, cannot promote to STRUCTURAL
   -- observer: read-only
@@ -316,8 +316,8 @@ CREATE TABLE IF NOT EXISTS wizard_career_history (
   -- junior_librarian | librarian | senior_librarian | domain_lead | master
 
   promoted_at     TEXT NOT NULL,
-  promoted_by     TEXT NOT NULL DEFAULT 'op_god_001',
-  -- Immer durch den Gott
+  promoted_by     TEXT NOT NULL DEFAULT 'op_king_001',
+  -- Immer durch den King
 
   reason          TEXT NOT NULL,
   -- Warum Beförderung verdient
@@ -361,7 +361,7 @@ CREATE TABLE IF NOT EXISTS wizard_reproduction (
   mentor_wizard_id  TEXT NOT NULL REFERENCES wizards(id),
   junior_wizard_id  TEXT NOT NULL REFERENCES wizards(id),
 
-  approved_by     TEXT NOT NULL DEFAULT 'op_god_001',
+  approved_by     TEXT NOT NULL DEFAULT 'op_king_001',
   approved_at     TEXT NOT NULL,
   rationale       TEXT NOT NULL,
   -- Warum hat der Mentor einen Junior verdient

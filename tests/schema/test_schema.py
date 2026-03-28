@@ -357,7 +357,7 @@ def test_pattern_structural_rationale_min_length():
     expect_raises(
         conn,
         """UPDATE patterns SET status='structural',
-           structural_approved_by='op_god_001',
+           structural_approved_by='op_king_001',
            structural_approved_at=?,
            structural_rationale=?
            WHERE id=?""",
@@ -374,7 +374,7 @@ def test_pattern_structural_with_full_fields():
                      "No unresolved strong counter-evidence. Human approved."
     conn.execute("""
         UPDATE patterns SET status='structural',
-            structural_approved_by='op_god_001',
+            structural_approved_by='op_king_001',
             structural_approved_at=?,
             structural_rationale=?
         WHERE id=?
@@ -532,10 +532,10 @@ def test_epoch_seeded_active():
 def test_operator_god_seeded():
     conn = sqlite3.connect(GOVERN_DB)
     row = conn.execute(
-        "SELECT role FROM operators WHERE id=?", ("op_god_001",)
+        "SELECT role FROM operators WHERE id=?", ("op_king_001",)
     ).fetchone()
     assert row is not None, "God operator not found"
-    assert row[0] == "god", f"Operator role should be 'god', got {row[0]}"
+    assert row[0] == "king", f"Operator role should be 'king', got {row[0]}"
     conn.close()
 
 # ============================================================

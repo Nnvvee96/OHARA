@@ -40,7 +40,7 @@ Shred Phase:
 Action Phase (Wizard-Cycles):
   Loop: Ingest → Extract → Review → Pattern → Book.
   Utility Tier für Tests/Docs.
-  God Digest täglich.
+  King Digest täglich.
 
 Closing Phase:
   /AUDIT: 85% Härtung verifizieren.
@@ -65,9 +65,9 @@ ohara.py atom list --domain ai_patterns --status candidate — Atoms anzeigen
 ohara.py review --wizard aria — Review-Queue
 ohara.py pattern create --wizard aria — Pattern erstellen
 ohara.py pattern list — Patterns anzeigen
-ohara.py god digest — Tägliche Zusammenfassung
-ohara.py god approve --pattern <id> — STRUCTURAL Promotion (Gott only)
-ohara.py god redirect --wizard <n> --instruction "..." — Wizard anweisen
+ohara.py king digest — Tägliche Zusammenfassung
+ohara.py king approve --pattern <id> — STRUCTURAL Promotion (King only)
+ohara.py king redirect --wizard <n> --instruction "..." — Wizard anweisen
 ohara.py wizards — Wizard-Profile anzeigen
 
 Final Principle: Disziplin über Inspiration.

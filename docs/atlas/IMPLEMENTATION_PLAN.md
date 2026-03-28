@@ -57,8 +57,8 @@ Phase 2: Scout Automation [~4 Wochen nach Phase 1]
 Phase 3: Volle Wizard-Autonomie [~6 Wochen]
   SIGNAL→VALIDATED automatisch.
   Skeptic-Cycles automatisch.
-  God Digest: 5-10 Min täglich.
-  STRUCTURAL: permanent nur Gott.
+  King Digest: 5-10 Min täglich.
+  STRUCTURAL: permanent nur King.
 
 Phase 4: Autonome Library [Ongoing]
   8+ aktive Domänen.
@@ -69,18 +69,18 @@ Phase 5: Library UI & Wizard Dashboard
   Next.js Frontend, read-only API.
   Wizard erstellen per UI.
   Bücherregale, Pattern-Graph, Atom-Explorer.
-  God-Dashboard mit STRUCTURAL Queue.
+  King-Dashboard mit STRUCTURAL Queue.
 
 Phase 6: Builders' World (World 2)
   Builder-Agents lesen Library.
-  Vorschläge → Gott genehmigt → Builder bauen.
+  Vorschläge → King genehmigt → Builder bauen.
   Clawdbot/Hermes/Paperclip als World-2-Tools.
   Ergebnisse fließen zurück in World 1.
 
 Phase 7: Wizard Evolution & Reproduktion
   wizard_memory, wizard_career_history.
   Beförderungssystem (Junior→Senior→Master).
-  Seniors bekommen Mitarbeiter (Gott genehmigt).
+  Seniors bekommen Mitarbeiter (King genehmigt).
   Domänen teilen sich organisch.
 
 Phase 8: Räume der Zivilisation

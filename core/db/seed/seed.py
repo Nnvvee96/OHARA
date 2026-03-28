@@ -362,12 +362,12 @@ def seed_governance(db_path: Path) -> None:
 
     print("\n  Seeding governance database...")
 
-    # Operator (God)
+    # Operator (King)
     conn.execute("""
         INSERT OR IGNORE INTO operators (id, name, role, active, created_at)
         VALUES (?, ?, ?, ?, ?)
-    """, ("op_god_001", "God", "god", 1, now()))
-    print("  + Operator: God (op_god_001)")
+    """, ("op_king_001", "God", "king", 1, now()))
+    print("  + Operator: King (op_king_001)")
 
     # Wizards
     for w in WIZARDS:

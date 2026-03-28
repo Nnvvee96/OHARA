@@ -23,7 +23,7 @@ REINA (marketing_distribution): Bereit
 God (Operator): Aktiv — Setup-Phase pending
 
 Monitoring: cycle_vitality Tabelle in ohara_governance.db
-God-Interface: ohara.py god digest / approve / redirect
+King-Interface: ohara.py king digest / approve / redirect
 
 ## 3. Checkpoint Log
 

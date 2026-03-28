@@ -11,7 +11,7 @@ risk_tier: HIGH
 
 ## 1. Harness Contract
 Risk Paths:
-  - STRUCTURAL Promotion (nur Gott)
+  - STRUCTURAL Promotion (nur King)
   - Atom-Ingestion (append-only, content-addressed)
   - Epoch-Parameter (frozen wenn aktiv)
   - Wizard-Permissions (Agent darf niemals mehr als erlaubt)
@@ -29,7 +29,7 @@ Key Schemas (vollständig in docs/tdd.md):
 
 ## 2. Shred
 Failure A: utility_vector leer → Atom ist Noise → verwerfen.
-Failure B: STRUCTURAL ohne Gott-Sign-off → DB CHECK constraint rejected.
+Failure B: STRUCTURAL ohne King-Sign-off → DB CHECK constraint rejected.
 Failure C: Model-Wechsel ohne Epoch → INVARIANT-3 verletzt → Vergleichbarkeit kaputt.
 Failure D: Skeptic-Cycle fehlt vor VALIDATED → Hard Gate blockiert Promotion.
 Failure E: Cross-DB FK fehlt → Application Layer muss enforzen (dokumentiert).
@@ -42,7 +42,7 @@ Harness Cases: 31 Tests — erweiterbar, nie löschbar.
 
 Wizard Evolution (Phase 6):
   wizard_memory: Fehler + Erfolge persistent.
-  wizard_career_history: Beförderungen durch Gott.
+  wizard_career_history: Beförderungen durch King.
   wizard_functional_state: confidence/caution/curiosity — UNIQUE per Wizard.
   wizard_reproduction: Mentor→Junior Beziehungen.
 

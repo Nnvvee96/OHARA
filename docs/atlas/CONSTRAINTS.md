@@ -43,7 +43,7 @@ Utility Vector Pflicht
   OHARA ist keine Ablage — es ist eine Schatzkammer.
 
 Harness Risk Tiers
-  High-Risk (STRUCTURAL): Manuelles Gott-Sign-off + vollständige Dokumentation.
+  High-Risk (STRUCTURAL): Manuelles King-Sign-off + vollständige Dokumentation.
   Low-Risk (SIGNAL→EMERGING): Automatisierte Regelprüfung erlaubt.
 
 Evidence over Claims
@@ -54,11 +54,11 @@ Evidence over Claims
 
 Organisches Wachstum
   Wizard-Roster wächst nur durch Gap-Detection.
-  Wizard-Reproduktion nur durch Gott-Genehmigung nach Verdienst-Nachweis.
+  Wizard-Reproduktion nur durch King-Genehmigung nach Verdienst-Nachweis.
 
 Wizard-Autonomie-Grenzen
   Wizards schlagen vor. Regeln entscheiden (bis VALIDATED).
-  Gott entscheidet (ab STRUCTURAL).
+  King entscheidet (ab STRUCTURAL).
   Verboten für Wizards: direkt STRUCTURAL promoten,
   Raw Vault modifizieren, domänenfremd schreiben ohne cross_domain_tags.
 

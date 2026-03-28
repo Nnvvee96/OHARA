@@ -10,8 +10,8 @@ Usage:
   python ohara.py atom list --domain ai_patterns
   python ohara.py review --wizard aria
   python ohara.py pattern create --wizard aria
-  python ohara.py god digest
-  python ohara.py god approve --pattern <id>
+  python ohara.py king digest
+  python ohara.py king approve --pattern <id>
 """
 
 import sys
@@ -637,12 +637,12 @@ def pattern_list(domain, status):
 # ============================================================
 
 @cli.group()
-def god():
+def king():
     """God-mode commands — overseer interface."""
     pass
 
-@god.command('digest')
-def god_digest():
+@king.command('digest')
+def king_digest():
     """Daily digest — what happened, what needs your attention."""
     console.print()
     console.print(Panel.fit(
@@ -688,7 +688,7 @@ def god_digest():
 
     if validated:
         console.print(f"\n[bold yellow]⚑ Patterns awaiting STRUCTURAL review ({len(validated)})[/bold yellow]")
-        console.print("[dim]These are in your queue. Use: ohara god approve --pattern <id>[/dim]")
+        console.print("[dim]These are in your queue. Use: ohara king approve --pattern <id>[/dim]")
         for p in validated:
             console.print(f"  [yellow]→[/yellow] {p['title'][:60]} [dim]({p['domain']}, since {p['status_changed_at'][:10]})[/dim]")
     else:
@@ -697,7 +697,7 @@ def god_digest():
     # Unresolved counter-evidence
     if stats['counter_evidence_unresolved'] > 0:
         console.print(f"\n[bold red]⚠ Unresolved counter-evidence: {stats['counter_evidence_unresolved']}[/bold red]")
-        console.print("[dim]Run: ohara god ce-review[/dim]")
+        console.print("[dim]Run: ohara king ce-review[/dim]")
 
     # Pending atoms
     if stats.get('atoms_candidate', 0) > 0:
@@ -706,10 +706,10 @@ def god_digest():
 
     console.print()
 
-@god.command('approve')
+@king.command('approve')
 @click.option('--pattern', '-p', required=True, help='Pattern ID to promote to STRUCTURAL')
 @click.option('--rationale', '-r', default=None, help='Approval rationale (min 100 chars)')
-def god_approve(pattern, rationale):
+def king_approve(pattern, rationale):
     """Promote a VALIDATED pattern to STRUCTURAL. God-only action."""
     conn = db.knowledge_db()
     try:
@@ -757,12 +757,12 @@ def god_approve(pattern, rationale):
         conn.execute("""
             UPDATE patterns SET
                 status='structural',
-                structural_approved_by='op_god_001',
+                structural_approved_by='op_king_001',
                 structural_approved_at=?,
                 structural_rationale=?,
                 status_changed_at=?,
                 updated_at=?,
-                updated_by='op_god_001',
+                updated_by='op_king_001',
                 version=version+1
             WHERE id=?
         """, (db.now(), rationale, db.now(), db.now(), pattern))
@@ -775,7 +775,7 @@ def god_approve(pattern, rationale):
         """, (
             db.ulid("ph_"), pattern, p['version'] + 1,
             'validated', 'structural',
-            db.now(), 'op_god_001', epoch['id'], rationale
+            db.now(), 'op_king_001', epoch['id'], rationale
         ))
         conn.commit()
 
@@ -785,10 +785,10 @@ def god_approve(pattern, rationale):
     finally:
         conn.close()
 
-@god.command('redirect')
+@king.command('redirect')
 @click.option('--wizard', '-w', required=True, help='Wizard to redirect')
 @click.option('--instruction', '-i', required=True, help='Instruction for the wizard')
-def god_redirect(wizard, instruction):
+def king_redirect(wizard, instruction):
     """Send a governance instruction to a wizard."""
     wiz = db.get_wizard(wizard)
     if not wiz:
@@ -807,11 +807,11 @@ def god_redirect(wizard, instruction):
         conn.execute("""
             INSERT INTO governance_actions (
                 id, action_type, wizard_id, triggered_by, triggered_at,
-                god_instruction, status
+                king_instruction, status
             ) VALUES (?,?,?,?,?,?,?)
         """, (
-            db.ulid("gov_"), 'god_redirect', wiz['id'],
-            'god', db.now(), instruction, 'open'
+            db.ulid("gov_"), 'king_redirect', wiz['id'],
+            'king', db.now(), instruction, 'open'
         ))
         conn.commit()
     finally:

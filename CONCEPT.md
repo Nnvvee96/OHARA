@@ -80,7 +80,7 @@ Wissende entwickeln sich wie echte Menschen:
 ## 7. Defense & Moat
 Epistemisch: Skeptic-Cycles als Hard Gate.
 Zeitlich: 90 Tage VALIDATED vor STRUCTURAL.
-Menschlich: STRUCTURAL ausschließlich durch den Gott.
+Menschlich: STRUCTURAL ausschließlich durch den King.
 Technisch: Append-only, SHA256, Epoch-Versionierung.
 Philosophisch: SOUL.md als heiliges Fundament.
 

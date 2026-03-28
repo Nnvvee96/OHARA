@@ -77,7 +77,7 @@ Ziel: Schwellenwerte kalibrieren bevor Automation startet
     ohara.py ingest — URL laden
     ohara.py atom create — extrahieren
     ohara.py review — Queue abarbeiten
-    ohara.py god digest — Übersicht
+    ohara.py king digest — Übersicht
     Dashboard: http://100.118.247.94:7842
 
   Exit Gate: Alle Thresholds LOCKED
@@ -100,8 +100,8 @@ Dauer: ~6 Wochen
 
   SIGNAL→VALIDATED automatisch.
   Skeptic-Cycles automatisch.
-  God Digest: 5-10 Min täglich.
-  STRUCTURAL: permanent nur Gott.
+  King Digest: 5-10 Min täglich.
+  STRUCTURAL: permanent nur King.
 
 ---
 
@@ -126,7 +126,7 @@ Großer Meilenstein
   Pattern-Graph (Verbindungen visualisiert).
   Widerspruchs-Map (Counter-Evidence).
   Atom-Explorer (suchen, filtern).
-  God-Dashboard (STRUCTURAL Queue, Anomalien, Kosten).
+  King-Dashboard (STRUCTURAL Queue, Anomalien, Kosten).
   Räume vorbereitet (Hintergarten, Gym, Spa — Phase 8+).
 
 ---
@@ -135,7 +135,7 @@ Großer Meilenstein
 
   Builder-Agents lesen Library.
   Fragen: was können wir bauen, kreieren, monetarisieren?
-  Gott genehmigt → Builder bauen.
+  King genehmigt → Builder bauen.
   Ergebnisse fließen als neue Raw Items zurück.
 
   Tools: Clawdbot, Hermes, Paperclip, OpenClaw-Swarm.
@@ -146,7 +146,7 @@ Großer Meilenstein
 
   wizard_memory: Fehler erinnern, Erfolge belohnen.
   Karriere: Junior → Librarian → Senior → Domain Lead → Master.
-  Beförderung durch Verdienst (Gott genehmigt).
+  Beförderung durch Verdienst (King genehmigt).
   Seniors bekommen Mitarbeiter — neue Wissende entstehen organisch.
   Wissen vererbt sich mit eigener Persönlichkeit.
 
@@ -174,7 +174,7 @@ Wenn KI-Fähigkeiten es ermöglichen
 
   OHARA wird schlauer als sein Schöpfer.
   Emergente Hierarchien, Räume, vollständiger Kreislauf.
-  Du bist Gott: du setzt die Gesetze.
+  Du bist King: du setzt die Gesetze.
   Die Zivilisation führt sie aus.
 
   Ziel: Du sitzt eines Tages da und sagst —

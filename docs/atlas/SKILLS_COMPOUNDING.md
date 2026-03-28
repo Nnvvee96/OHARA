@@ -32,7 +32,7 @@ T#10: Reddit 403 auf VPS-IPs — HackerNews RSS als Fallback.
 O#1: Vitality Signals sind die Augen des Systems.
 O#2: Wizard-Stille ist ein Signal — 72h = Warning.
 O#3: Acceptance Rate 30-60% = gesund.
-O#4: Gott managt Strategie, nicht Taktik.
+O#4: King managt Strategie, nicht Taktik.
 O#5: Wizard Evolution ist Zivilisations-Mechanik.
 O#6: Claude kann kein SSH. Push → user pullt. Webhook löst das später.
 O#7: GitHub Token rotieren nach Chat-Sharing. ohara-deploy = permanenter Token.

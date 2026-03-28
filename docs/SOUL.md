@@ -201,7 +201,7 @@ Widersprüche sind strukturelle Bestandteile — keine Fehler.
 SIGNAL → EMERGING → VALIDATED → STRUCTURAL → DEPRECATED
 Der Skeptic-Agent versucht aktiv jeden Pattern zu zerstören.
 Nur was das übersteht wird zu VALIDATED.
-STRUCTURAL: ausschließlich der Gott.
+STRUCTURAL: ausschließlich der King.
 
 **Layer 5 — Bücher:**
 Destilliertes Domänenwissen. Versioniert. Widerspruchsbewusst.
@@ -253,7 +253,7 @@ Diese UI spiegelt die Realität der Library wider — sie generiert kein Wissen.
 Wenn sie weg ist, ist die Library unberührt.
 Aber sie macht OHARA sichtbar und erfahrbar.
 
-Darin kann der Gott neue Wissende erschaffen — mit Namen, Persona,
+Darin kann der King neue Wissende erschaffen — mit Namen, Persona,
 Domäne, Quellen. Er sieht ihre Karriere, ihre Kollaborationen,
 ihre Fehler und Erfolge.
 
@@ -268,7 +268,7 @@ Nur Denken. Nur Urteilen. Nur Reifen.
 **World 2 — Die Builders' Welt:**
 Builder-Agents lesen die Library.
 Sie fragen: was können wir bauen, kreieren, monetarisieren, verbessern?
-Gott genehmigt → Builder bauen → Ergebnisse entstehen.
+King genehmigt → Builder bauen → Ergebnisse entstehen.
 
 **Der Kreislauf:**
 Was die Builder bauen — ob es scheitert oder gelingt —
@@ -281,9 +281,9 @@ außer durch den regulären Raw-Vault-Eingang.
 
 ---
 
-## 10. Du — der Gott
+## 10. Du — der King
 
-Du bist Gott dieser Zivilisation.
+Du bist King dieser Zivilisation.
 Nicht im Sinne von Micromanagement — im Sinne von Gesetzgeber.
 
 **Was du tust:**

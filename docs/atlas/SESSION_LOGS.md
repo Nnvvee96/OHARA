@@ -20,7 +20,7 @@ MARCUS (software_architecture): Aktiv auf VPS
 NOVA (saas_product): Aktiv auf VPS
 STERLING (finance_investing): Aktiv auf VPS
 REINA (marketing_distribution): Aktiv auf VPS
-God-Interface: ohara.py + Web Dashboard (http://100.118.247.94:7842)
+King-Interface: ohara.py + Web Dashboard (http://100.118.247.94:7842)
 
 ## 3. Checkpoint Log
 

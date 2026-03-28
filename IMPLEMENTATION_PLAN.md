@@ -38,12 +38,12 @@ Phase 3: Vollständige Wizard-Autonomie (6 Wochen)
 
 Phase 4: Autonome Library — Level B (ongoing)
   Alle Domains aktiv. Cross-Domain Resonanz Engine.
-  Gott: täglich 5-10 Min, wöchentlich 30 Min.
+  King: täglich 5-10 Min, wöchentlich 30 Min.
   Gate für Phase 5: 500+ Atome, 20+ Patterns, 5+ Bücher.
 
 Phase 5: Builders' World — World 2
   Builder-Agents lesen Library, schlagen vor, bauen.
-  Gott genehmigt was gebaut wird.
+  King genehmigt was gebaut wird.
   World-2-Ergebnisse fließen als neue Quellen zurück.
 
 Phase 6: Wizard Evolution

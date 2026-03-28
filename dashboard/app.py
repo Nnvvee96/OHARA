@@ -570,9 +570,9 @@ def api_decide():
     decision = data['decision']
     reason = data.get('reason', '')
     if decision == 'accept':
-        db.accept_atom(atom_id, reviewer='god')
+        db.accept_atom(atom_id, reviewer='king')
     else:
-        db.reject_atom(atom_id, reason=reason or 'Rejected via dashboard', reviewer='god')
+        db.reject_atom(atom_id, reason=reason or 'Rejected via dashboard', reviewer='king')
     return jsonify({'ok': True})
 
 @app.route('/api/patterns')

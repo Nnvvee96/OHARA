@@ -27,7 +27,7 @@ Decision D: utility_vector als Pflichtfeld auf Atomen
   Rationale: OHARA ist keine Ablage. Atome ohne Nutzvektor werden
   vom Scout automatisch verworfen. SOUL.md Prinzip.
 
-Decision E: STRUCTURAL-Promotion ausschließlich human-only (Gott)
+Decision E: STRUCTURAL-Promotion ausschließlich human-only (King)
   Rationale: Das höchste Wissen darf nicht automatisiert werden.
   Permanente Regel — keine Ausnahmen, keine Overrides, niemals.
 

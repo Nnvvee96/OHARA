@@ -62,7 +62,7 @@ L5: Bücher (kuratierte Domänen-Wissensbände)
 ## 5. Defense & Moat
 Epistemisch: Skeptic-Cycles als Hard Gate
 Zeitlich: 90 Tage VALIDATED vor STRUCTURAL
-Menschlich: STRUCTURAL ausschließlich durch Gott
+Menschlich: STRUCTURAL ausschließlich durch King
 Technisch: Append-only, SHA-256, Epoch-Versionierung
 Philosophisch: SOUL.md als heiliges Fundament
 Zivilisatorisch: Wissende wachsen, reproduzieren sich, werden schlauer

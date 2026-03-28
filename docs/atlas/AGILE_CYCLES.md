@@ -17,18 +17,18 @@ Gate: Phase Exit Criteria aus IMPLEMENTATION_PLAN.md.
 ## 2. Intent Phase
 Define: Monatliche Ziele in natürlicher Sprache.
   Beispiel: "50 akzeptierte Atome, 5 Patterns in EMERGING+, Aria und Nova aktiv"
-Decompose: Supervisor (Gott) bricht in Wizard-Tasks auf.
-Assign: Route zu aktiven Wizards via god redirect.
+Decompose: Supervisor (King) bricht in Wizard-Tasks auf.
+Assign: Route zu aktiven Wizards via king redirect.
 Gate: Löst das echte epistemische Lücken? Bias-Check.
 
 ## 3. Orchestrate Phase
-Supervisor (Gott): Setzt Ziele, approves STRUCTURAL, redirects bei Drift.
+Supervisor (King): Setzt Ziele, approves STRUCTURAL, redirects bei Drift.
 Wizards: Laufen autonom in ihren Cycles.
-Human-on-Loop: Gott eskaliert nur Anomalien und STRUCTURAL-Entscheidungen.
+Human-on-Loop: King eskaliert nur Anomalien und STRUCTURAL-Entscheidungen.
 
 ## 4. Execute Phase
 Wizard-Cycles: Stündlich (konfigurierbar via SCOUT_INTERVAL_SECONDS).
-Review-Queue: Täglich durch Gott (5-10 Min via god digest).
+Review-Queue: Täglich durch King (5-10 Min via king digest).
 Pattern-Promotions: Wöchentlich (30 Min).
 Adversarielle Audits: Monatlich pro Domain (2h).
 Tier: Gemini Flash für Extraktion; Gemini Pro für Skeptic/Reasoning.

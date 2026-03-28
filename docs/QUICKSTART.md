@@ -95,17 +95,17 @@ python core/scripts/ohara.py pattern list --status emerging
 
 ---
 
-## Your God Interface
+## Your King Interface
 
 ```bash
 # Daily digest — what needs attention
-python core/scripts/ohara.py god digest
+python core/scripts/ohara.py king digest
 
 # Approve a VALIDATED pattern for STRUCTURAL status (your exclusive action)
-python core/scripts/ohara.py god approve --pattern pat_xxxx
+python core/scripts/ohara.py king approve --pattern pat_xxxx
 
 # Redirect a wizard
-python core/scripts/ohara.py god redirect \
+python core/scripts/ohara.py king redirect \
   --wizard sterling \
   --instruction "Focus more on ETF structural patterns, less on individual stock picks"
 ```

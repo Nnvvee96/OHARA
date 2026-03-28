@@ -27,7 +27,7 @@ Decision D: utility_vector als Pflichtfeld
   financial, future_optionality, personal_capability,
   creative_enabling, decision_support, self_improvement.
 
-Decision E: STRUCTURAL permanent human-only (Gott)
+Decision E: STRUCTURAL permanent human-only (King)
   Keine Ausnahmen. Permanent.
 
 Decision F: Wizard-Personas sind funktional
